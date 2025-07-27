@@ -1,14 +1,23 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
+import { FaSwimmer } from "react-icons/fa";
 
 export default function NavBar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function handleToggleMenu() {
+    setIsMenuOpen(!isMenuOpen);
+  }
   return (
     <nav className="bg-white shadow-md">
       <div className="mx-auto max-w-6xl px-4">
         <div className=" flex justify-between items-center h-16">
-          <div className="flex-shrink-0">
+          <div className="flex items-center space-x-3">
+            <FaSwimmer className="text-2xl text-primary" />
             <h1 className="text-xl font-bold text-primary">آرمان داریوشی</h1>
           </div>
-          <div className="space-x-reverse md:block space-x-8">
+          <div className="space-x-reverse hidden md:block space-x-8">
             <Link
               dir="rtl"
               href="/"
@@ -40,8 +49,12 @@ export default function NavBar() {
           </div>
         </div>
         {/* Mobile menu button */}
+
         <div className="md:hidden">
-          <button className="text-gray-700 hover:text-primary">
+          <button
+            className="text-gray-700 hover:text-primary"
+            onClick={handleToggleMenu}
+          >
             <svg
               className="h-6 w-6"
               fill="none"
@@ -57,6 +70,40 @@ export default function NavBar() {
             </svg>
           </button>
         </div>
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <div className="px-4 py-2 space-y-1">
+              <Link
+                href="/"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                صفحه اصلی
+              </Link>
+              <Link
+                href="/register"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                ثبت‌نام
+              </Link>
+              <Link
+                href="/dashboard"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                داشبورد
+              </Link>
+              <Link
+                href="/admin"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                پنل مربی
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

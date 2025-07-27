@@ -1,5 +1,6 @@
 import Image from "next/image";
 import HeroImage from "@/public/images/pic-1.jpg";
+import Link from "next/link";
 function Hero() {
   return (
     <section className="flex justify-center items-center flex-col relative  h-[70vh] text-center overflow-hidden">
@@ -19,9 +20,12 @@ function Hero() {
           آموزش شنا حرفه‌ای
         </h1>
         <p className="text-xl md:text-2xl mb-8">با آرمان داریوشی</p>
-        <button className="text-white bg-primary hover:bg-primary-dark px-8 py-4 rounded-lg text-lg font-semibold  transition-colors">
+        <Link
+          href="/register"
+          className="text-white bg-primary hover:bg-primary-dark px-8 py-4 rounded-lg text-lg font-semibold  transition-colors"
+        >
           ثبت‌ نام در کلاس شنا
-        </button>
+        </Link>
       </div>
     </section>
   );

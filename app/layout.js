@@ -1,6 +1,7 @@
 import NavBar from "@/app/components/layout/NavBar";
 import "@/app/_styles/globals.css";
 import { Vazirmatn } from "next/font/google";
+import Footer from "./components/layout/Footer";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
       <body className={vazirmatn.className}>
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
