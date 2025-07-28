@@ -2,6 +2,7 @@ import ServicesOverview from "./components/ui/ServicesOverview";
 import CoachResume from "./components/ui/CoachResume";
 import DemoDisclaimer from "./components/ui/DemoDisclaimer";
 import Hero from "./components/ui/Hero";
+import ChildrenSafetySection from "./components/ui/ChildrenSafetySection ";
 
 export const metadata = {
   title: "آرمان داریوشی - آموزش شنا حرفه‌ای",
@@ -12,7 +13,9 @@ export default function page() {
   return (
     <>
       <Hero />
+
       <ServicesOverview />
+      <ChildrenSafetySection />
       <CoachResume />
       <DemoDisclaimer />
     </>
