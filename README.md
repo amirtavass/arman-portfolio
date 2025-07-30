@@ -2,9 +2,21 @@
 
 A professional demo website for swimming instructors built with **Next.js 14** and **Tailwind CSS**, featuring Persian/Farsi language support and RTL layout.
 
+# 🏊‍♂️ Live demo
+
+Open [https://arman-portfolio-alpha.vercel.app/]
+
 ## 🎯 Purpose
 
 This is a **portfolio demonstration** showcasing a complete swimming instructor booking system. The demo illustrates the full potential of a custom web application for swimming coaches and sports instructors.
+
+## 🚀 Screenshots
+
+**Homepage with Hero Section**
+![alt text](image.png)
+
+**Children safety section**
+![alt text](image-1.png)
 
 ## ✨ Features
 
