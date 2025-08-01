@@ -1,12 +1,11 @@
 import Image from "next/image";
-import HeroImage from "@/public/images/pic-1.jpg";
 import Link from "next/link";
 function Hero() {
   return (
     <section className="flex justify-center items-center flex-col relative  h-[70vh] text-center overflow-hidden">
       <div className="top-0 left-0 absolute w-full h-full -z-10">
         <Image
-          src={HeroImage}
+          src=""
           alt="Swimmer"
           fill
           className="object-cover"

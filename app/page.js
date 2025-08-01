@@ -1,8 +1,9 @@
 import ServicesOverview from "./components/ui/ServicesOverview";
 import CoachResume from "./components/ui/CoachResume";
 import DemoDisclaimer from "./components/ui/DemoDisclaimer";
-import Hero from "./components/ui/Hero";
 import ChildrenSafetySection from "./components/ui/ChildrenSafetySection ";
+import SlidingHero from "./components/ui/SlidingHero";
+import FeaturedProducts from "./components/ui/FeaturedProducts";
 
 export const metadata = {
   title: "آرمان داریوشی - آموزش شنا حرفه‌ای",
@@ -12,9 +13,8 @@ export const metadata = {
 export default function page() {
   return (
     <>
-      <Hero />
-
-      <ServicesOverview />
+      <SlidingHero />
+      <FeaturedProducts />
       <ChildrenSafetySection />
       <CoachResume />
       <DemoDisclaimer />
