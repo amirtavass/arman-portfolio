@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 function RegisterPage() {
@@ -115,6 +116,15 @@ function RegisterPage() {
               ثبت‌نام
             </button>
           </form>
+          <div className="text-center mt-8 pt-6 border-t border-gray-200">
+            <p className="text-gray-600 mb-4">قبلاً حساب دارید؟</p>
+            <Link
+              href="/login"
+              className="text-primary hover:underline font-medium"
+            >
+              وارد شوید
+            </Link>
+          </div>
 
           {/* Demo Notice */}
           <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">

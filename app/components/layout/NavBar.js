@@ -32,6 +32,14 @@ export default function NavBar() {
             >
               ثبت‌نام
             </Link>
+
+            <Link
+              dir="rtl"
+              href="/login"
+              className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium"
+            >
+              ورود
+            </Link>
             <Link
               dir="rtl"
               href="/dashboard"
@@ -45,6 +53,13 @@ export default function NavBar() {
               className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium"
             >
               پنل مربی
+            </Link>
+            <Link
+              dir="rtl"
+              href="/articles"
+              className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium"
+            >
+              مقالات
             </Link>
           </div>
         </div>
@@ -72,7 +87,7 @@ export default function NavBar() {
         </div>
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t border-gray-200">
-            <div className="px-4 py-2 space-y-1">
+            <div className="px-3 py-2 space-y-1">
               <Link
                 href="/"
                 className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
@@ -88,6 +103,14 @@ export default function NavBar() {
                 ثبت‌نام
               </Link>
               <Link
+                dir="rtl"
+                href="/login"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                ورود
+              </Link>
+              <Link
                 href="/dashboard"
                 className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
                 onClick={() => setIsMenuOpen(false)}
@@ -100,6 +123,13 @@ export default function NavBar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 پنل مربی
+              </Link>
+              <Link
+                href="/articles"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                مقالات
               </Link>
             </div>
           </div>
