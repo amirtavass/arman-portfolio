@@ -13,10 +13,13 @@ This is a **portfolio demonstration** showcasing a complete swimming instructor 
 ## 🚀 Screenshots
 
 **Homepage with Hero Section**
-![alt text](image.png)
+![alt text](image-2.png)
 
-**Children safety section**
-![alt text](image-1.png)
+**Products**
+![alt text](image-3.png)
+
+**Register**
+![alt text](image-4.png)
 
 ## ✨ Features
 
