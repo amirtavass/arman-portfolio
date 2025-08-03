@@ -17,18 +17,31 @@
   --surface: #ffffff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #f8fafc;
-    --surface: #1e293b;
-    --text-dark: #f8fafc;
-    --text-medium: #94a3b8;
-    --text-light: #64748b;
-  }
+.dark {
+  --background: #1e293b;
+  --surface: #374151;
+  --text-dark: #f8fafc;
+  --text-medium: #d1d5db;
+  --text-light: #9ca3af;
 }
 
 body {
   background: var(--background);
   color: var(--text-dark);
   font-family: var(--font-vazirmatn), sans-serif !important;
+}
+.bg-surface {
+  background-color: var(--surface);
+}
+
+.text-medium {
+  color: var(--text-medium);
+}
+
+.text-dark {
+  color: var(--text-dark);
+}
+
+.hover-primary:hover {
+  color: var(--primary);
 }

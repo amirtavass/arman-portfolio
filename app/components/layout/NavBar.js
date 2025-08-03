@@ -2,9 +2,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaSwimmer } from "react-icons/fa";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isDark, setIsDark } = useTheme();
 
   function handleToggleMenu() {
     setIsMenuOpen(!isMenuOpen);
@@ -24,6 +26,13 @@ export default function NavBar() {
               className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium"
             >
               صفحه اصلی
+            </Link>
+            <Link
+              dir="rtl"
+              href="/products"
+              className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium"
+            >
+              محصولات
             </Link>
             <Link
               dir="rtl"
@@ -61,11 +70,27 @@ export default function NavBar() {
             >
               مقالات
             </Link>
+            {/* Dark Mode Button - Desktop */}
+            {/* <button
+              onClick={() => setIsDark(!isDark)}
+              className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium transition-colors"
+            >
+              {isDark ? "☀️" : "🌙"}
+            </button> */}
           </div>
         </div>
         {/* Mobile menu button */}
 
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center space-x-3">
+          {/* Dark Mode Button - Mobile */}
+          {/* <button
+            onClick={() => setIsDark(!isDark)}
+            className="text-gray-700 hover:text-primary p-2"
+          >
+            {isDark ? "☀️" : "🌙"}
+          </button> */}
+
+          {/* Hamburger Button */}
           <button
             className="text-gray-700 hover:text-primary"
             onClick={handleToggleMenu}
@@ -94,6 +119,13 @@ export default function NavBar() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 صفحه اصلی
+              </Link>
+              <Link
+                href="/products"
+                className="block px-3 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                محصولات
               </Link>
               <Link
                 href="/register"
