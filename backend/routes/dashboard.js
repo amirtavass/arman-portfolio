@@ -26,4 +26,5 @@ router.post(
   dashboardController.edituser
 );
 
+router.post("/pay", dashboardController.pay);
 module.exports = router;

@@ -1,11 +1,41 @@
 const { validationResult } = require("express-validator");
 let controller = require("./controller");
 const User = require("../models/user");
+const axios = require("axios");
+const payment = require("../models/payment");
 
 module.exports = new (class DashboardController extends controller {
   async index(req, res, next) {
     try {
       res.render("dashboard/index");
+    } catch (err) {
+      next(err);
+    }
+  }
+  async pay(req, res, next) {
+    try {
+      let params = {
+        merchant_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        amount: req.body.amount,
+        callback_url: "http://localhost:4000/paycallback",
+        description: "charging balance",
+      };
+      const response = await axios.post(
+        "https://api.zarinpal.com/pg/v4/payment/request.json",
+        params
+      );
+      console.log(response);
+      if (response.data.status == 100) {
+        let newPayment = new payment({
+          user: req.user.id,
+          amount: req.body.amount,
+          resnumber: response.data.authority,
+        });
+        await newPayment.save();
+        res.redirect(
+          `https://www.zarinpal.com/pg/StartPay/${response.data.authority}`
+        );
+      }
     } catch (err) {
       next(err);
     }

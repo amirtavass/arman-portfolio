@@ -21,6 +21,7 @@ global.config = require("./config");
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(methodOverride("method"));
 //again order is important
 app.use(cookieParser(process.env.COOKIE_SECRET));

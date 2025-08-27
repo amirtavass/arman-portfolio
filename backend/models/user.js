@@ -8,6 +8,7 @@ const userSchema = new Schema(
     phone: { type: String, required: true },
     password: { type: String, required: true },
     age: { type: Number },
+    balance: { type: Number, required: true },
 
     // Swimming-specific fields
     swimmingType: {

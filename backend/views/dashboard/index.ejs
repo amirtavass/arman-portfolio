@@ -25,6 +25,12 @@
       <input type="file" name="img" />
       <input type="submit" value="send" />
     </form>
+    <h3>your current balance : <%=req.user.balance%></h3>
+    <form action="/dashboard/pay" method="POST" style="border: 1px solid green">
+      <h2>Charge your balance with disred amount</h2>
+      <input type="number" placeholder="amount" name="amount" />
+      <input type="submit" value="pay" />
+    </form>
     <a href="/logout">logout</a>
   </body>
 </html>

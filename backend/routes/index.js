@@ -1,5 +1,6 @@
 const express = require("express");
 const config = require("../config");
+const homeController = require("../controllers/homeController");
 const router = express.Router();
 
 router.use("/user", require("./user"));
@@ -7,6 +8,11 @@ router.use("/user", require("./user"));
 router.use("/auth", require("./auth"));
 
 router.use("/dashboard", require("./dashboard"));
+
+router.use("/classes", require("./class")); // NEW: Add class routes
+router.use("/registrations", require("./registration")); // NEW: Add registration routes
+
+router.get("/paycallback", homeController.paycallback); // Fixed typo
 
 router.use("/logout", (req, res, next) => {
   req.logout((err) => {
@@ -39,4 +45,5 @@ router.use(async (err, req, res, next) => {
     return res.status(code).render(`errors/${templateName}`, { message });
   }
 });
+
 module.exports = router;

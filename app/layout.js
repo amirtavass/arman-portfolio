@@ -1,3 +1,5 @@
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/app/lib/queryClient";
 import NavBar from "@/app/components/layout/NavBar";
 import "@/app/_styles/globals.css";
 import { Vazirmatn } from "next/font/google";
@@ -17,11 +19,13 @@ export default function RootLayout({ children }) {
         <meta charSet="utf-8" />
       </head>
       <body className={vazirmatn.className}>
-        <ThemeProvider>
-          <NavBar />
-          {children}
-          <Footer />
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <NavBar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
