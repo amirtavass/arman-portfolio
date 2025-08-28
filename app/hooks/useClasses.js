@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/app/lib/api";
 
-export const useClasees = () => {
+export const useClasses = () => {
   return useQuery({
     queryKey: ["classes"],
     queryFn: async () => {

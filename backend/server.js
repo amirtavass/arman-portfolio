@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const config = require("./config");
 const passport = require("passport");
@@ -18,6 +19,13 @@ require("dotenv").config();
 require("app-module-path").addPath(__dirname);
 
 global.config = require("./config");
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Your Next.js frontend URL
+    credentials: true,
+  })
+);
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));

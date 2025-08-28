@@ -1,26 +1,18 @@
-// let users = require("./../users");
 const express = require("express");
 const router = express.Router();
 
-//controllers
+// Controllers
 const authController = require("../controllers/authController");
 
-//validations
-const authValidator = require("validators/authValidator");
+// Validations
+const authValidator = require("../validators/authValidator");
 
-router.use((req, res, next) => {
-  if (req.isAuthenticated()) {
-    return res.redirect("/dashboard");
-  }
-  next();
-});
-
-router.get("/login", authController.loginForm);
-
-router.get("/register", authController.registerForm);
-
+// API Routes - no view rendering since we're using Next.js
 router.post("/login", authValidator.login(), authController.login);
-
 router.post("/register", authValidator.register(), authController.register);
+router.post("/logout", authController.logout);
+router.get("/check", authController.checkAuth);
+router.get("/me", authController.getCurrentUser);
+router.post("/logout", authController.logout);
 
 module.exports = router;

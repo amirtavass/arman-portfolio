@@ -1,7 +1,29 @@
+"use client";
 import Image from "next/image";
 import { MdShoppingCart } from "react-icons/md";
+import { useCart } from "@/app/contexts/CartContext";
+import { useAuth } from "@/app/contexts/authContext";
+import { useRouter } from "next/navigation";
 
 function ProductCard({ product }) {
+  const { addToCart } = useCart();
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      router.push(`/auth/login?productId=${product.id}`);
+      return;
+    }
+
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: parseInt(product.price.replace(/[^\d]/g, "")), // Convert price to number
+      image: product.image,
+    });
+  };
+
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6">
       <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden">
@@ -31,6 +53,7 @@ function ProductCard({ product }) {
       </div>
       <button
         disabled={!product.inStock}
+        onClick={handleAddToCart}
         className={`w-full py-2 rounded-lg font-medium transition-colors ${
           product.inStock
             ? "bg-success hover:bg-green-700 text-white"
@@ -38,7 +61,11 @@ function ProductCard({ product }) {
         }`}
       >
         <MdShoppingCart className="inline ml-2 w-4 h-4" />
-        {product.inStock ? "افزودن به سبد" : "ناموجود"}
+        {product.inStock
+          ? isAuthenticated
+            ? "افزودن به سبد"
+            : "ورود و خرید"
+          : "ناموجود"}
       </button>
     </div>
   );

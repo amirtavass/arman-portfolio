@@ -1,3 +1,4 @@
+"use client";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/app/lib/queryClient";
 import NavBar from "@/app/components/layout/NavBar";
@@ -5,6 +6,8 @@ import "@/app/_styles/globals.css";
 import { Vazirmatn } from "next/font/google";
 import Footer from "./components/layout/Footer";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AuthProvider } from "./contexts/authContext";
+import { CartProvider } from "./contexts/CartContext"; // Add this
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -20,11 +23,17 @@ export default function RootLayout({ children }) {
       </head>
       <body className={vazirmatn.className}>
         <QueryClientProvider client={queryClient}>
-          <ThemeProvider>
-            <NavBar />
-            {children}
-            <Footer />
-          </ThemeProvider>
+          <AuthProvider>
+            <CartProvider>
+              {" "}
+              {/* Add CartProvider */}
+              <ThemeProvider>
+                <NavBar />
+                {children}
+                <Footer />
+              </ThemeProvider>
+            </CartProvider>
+          </AuthProvider>
         </QueryClientProvider>
       </body>
     </html>
