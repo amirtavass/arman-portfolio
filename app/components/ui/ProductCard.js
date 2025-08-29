@@ -2,24 +2,16 @@
 import Image from "next/image";
 import { MdShoppingCart } from "react-icons/md";
 import { useCart } from "@/app/contexts/CartContext";
-import { useAuth } from "@/app/contexts/authContext";
-import { useRouter } from "next/navigation";
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const { isAuthenticated } = useAuth();
-  const router = useRouter();
 
   const handleAddToCart = () => {
-    if (!isAuthenticated) {
-      router.push(`/auth/login?productId=${product.id}`);
-      return;
-    }
-
+    // No authentication check here - all users can add to cart
     addToCart({
       id: product.id,
       name: product.name,
-      price: parseInt(product.price.replace(/[^\d]/g, "")), // Convert price to number
+      price: parseInt(product.price.replace(/[^\d]/g, "")),
       image: product.image,
     });
   };
@@ -51,6 +43,8 @@ function ProductCard({ product }) {
           {product.inStock ? "در انبار" : "ناموجود"}
         </span>
       </div>
+
+      {/* All users can add to cart now */}
       <button
         disabled={!product.inStock}
         onClick={handleAddToCart}
@@ -61,11 +55,7 @@ function ProductCard({ product }) {
         }`}
       >
         <MdShoppingCart className="inline ml-2 w-4 h-4" />
-        {product.inStock
-          ? isAuthenticated
-            ? "افزودن به سبد"
-            : "ورود و خرید"
-          : "ناموجود"}
+        {product.inStock ? "افزودن به سبد" : "ناموجود"}
       </button>
     </div>
   );

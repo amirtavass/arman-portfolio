@@ -9,11 +9,13 @@ router.use("/auth", require("./auth"));
 
 router.use("/dashboard", require("./dashboard"));
 
-router.use("/classes", require("./class")); // NEW: Add class routes
-router.use("/registrations", require("./registration")); // NEW: Add registration routes
+router.use("/classes", require("./class"));
+router.use("/registrations", require("./registration"));
 
-router.get("/paycallback", homeController.paycallback); // Fixed typo
+router.use("/admin", require("./admin")); // Admin authentication routes
+router.use("/products", require("./product")); // Product CRUD routes
 
+router.get("/paycallback", homeController.paycallback);
 router.use("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {

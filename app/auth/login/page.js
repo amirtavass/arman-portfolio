@@ -86,7 +86,7 @@ function LoginPage() {
           <div className="text-center mt-8 pt-6 border-t border-gray-200">
             <p className="text-gray-600 mb-4">کاربر جدید هستید؟</p>
             <Link
-              href="/register"
+              href="register"
               className="inline-block bg-success hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               ابتدا ثبت نام کنید

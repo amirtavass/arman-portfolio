@@ -7,7 +7,8 @@ import { Vazirmatn } from "next/font/google";
 import Footer from "./components/layout/Footer";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { AuthProvider } from "./contexts/authContext";
-import { CartProvider } from "./contexts/CartContext"; // Add this
+import { CartProvider } from "./contexts/CartContext";
+import { AdminProvider } from "./contexts/AdminContext";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -24,15 +25,15 @@ export default function RootLayout({ children }) {
       <body className={vazirmatn.className}>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <CartProvider>
-              {" "}
-              {/* Add CartProvider */}
-              <ThemeProvider>
-                <NavBar />
-                {children}
-                <Footer />
-              </ThemeProvider>
-            </CartProvider>
+            <AdminProvider>
+              <CartProvider>
+                <ThemeProvider>
+                  <NavBar />
+                  {children}
+                  <Footer />
+                </ThemeProvider>
+              </CartProvider>
+            </AdminProvider>
           </AuthProvider>
         </QueryClientProvider>
       </body>
