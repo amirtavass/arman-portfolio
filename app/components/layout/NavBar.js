@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useAuth } from "@/app/contexts/authContext";
 import { useCart } from "@/app/contexts/CartContext";
 import { useAdmin } from "@/app/contexts/AdminContext";
@@ -8,6 +9,7 @@ import { MdShoppingCart, MdMenu, MdClose } from "react-icons/md";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
   const {
     isAuthenticated: userAuth,
     user,
@@ -36,6 +38,13 @@ function NavBar() {
     await adminLogout();
     setIsMenuOpen(false); // Close mobile menu
     window.location.href = "/";
+  };
+
+  // Function to check if route is active
+  const isActiveRoute = (route) => {
+    if (route === "/" && pathname === "/") return true;
+    if (route !== "/" && pathname.startsWith(route)) return true;
+    return false;
   };
 
   // Show loading spinner while checking auth status
@@ -72,7 +81,11 @@ function NavBar() {
             {!adminAuth && (
               <Link
                 href="/cart"
-                className="relative p-2 text-gray-600 hover:text-primary transition-colors"
+                className={`relative p-2 transition-colors ${
+                  isActiveRoute("/cart")
+                    ? "text-primary"
+                    : "text-gray-600 hover:text-primary"
+                }`}
               >
                 <MdShoppingCart className="w-6 h-6" />
                 {/* Show cart count for all users */}
@@ -92,21 +105,42 @@ function NavBar() {
               <>
                 <Link
                   href="/"
-                  className="text-gray-700 hover:text-primary transition-colors"
+                  className={`transition-colors relative ${
+                    isActiveRoute("/")
+                      ? "text-primary font-medium"
+                      : "text-gray-700 hover:text-primary"
+                  }`}
                 >
                   خانه
+                  {isActiveRoute("/") && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"></span>
+                  )}
                 </Link>
                 <Link
                   href="/articles"
-                  className="text-gray-700 hover:text-primary transition-colors"
+                  className={`transition-colors relative ${
+                    isActiveRoute("/articles")
+                      ? "text-primary font-medium"
+                      : "text-gray-700 hover:text-primary"
+                  }`}
                 >
                   مقالات
+                  {isActiveRoute("/articles") && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"></span>
+                  )}
                 </Link>
                 <Link
                   href="/products"
-                  className="text-gray-700 hover:text-primary transition-colors"
+                  className={`transition-colors relative ${
+                    isActiveRoute("/products")
+                      ? "text-primary font-medium"
+                      : "text-gray-700 hover:text-primary"
+                  }`}
                 >
                   فروشگاه
+                  {isActiveRoute("/products") && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"></span>
+                  )}
                 </Link>
               </>
             )}
@@ -119,7 +153,11 @@ function NavBar() {
                 </span>
                 <Link
                   href="/admin/dashboard"
-                  className="text-blue-700 hover:text-blue-900"
+                  className={`transition-colors ${
+                    isActiveRoute("/admin")
+                      ? "text-blue-900 font-medium"
+                      : "text-blue-700 hover:text-blue-900"
+                  }`}
                 >
                   پنل مدیریت
                 </Link>
@@ -135,9 +173,16 @@ function NavBar() {
               <>
                 <Link
                   href="/dashboard"
-                  className="text-gray-700 hover:text-primary transition-colors"
+                  className={`transition-colors relative ${
+                    isActiveRoute("/dashboard")
+                      ? "text-primary font-medium"
+                      : "text-gray-700 hover:text-primary"
+                  }`}
                 >
                   داشبورد
+                  {isActiveRoute("/dashboard") && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"></span>
+                  )}
                 </Link>
                 <span className="text-gray-600">سلام {user?.name}</span>
                 <button
@@ -152,19 +197,34 @@ function NavBar() {
               <>
                 <Link
                   href="/auth/login"
-                  className="text-gray-700 hover:text-primary transition-colors"
+                  className={`transition-colors relative ${
+                    isActiveRoute("/auth/login")
+                      ? "text-primary font-medium"
+                      : "text-gray-700 hover:text-primary"
+                  }`}
                 >
                   ورود هنرجو
+                  {isActiveRoute("/auth/login") && (
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-primary"></span>
+                  )}
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg transition-colors"
+                  className={`transition-colors px-4 py-2 rounded-lg ${
+                    isActiveRoute("/auth/register")
+                      ? "bg-primary-dark text-white"
+                      : "bg-primary hover:bg-primary-dark text-white"
+                  }`}
                 >
                   ثبت‌نام
                 </Link>
                 <Link
                   href="/admin/login"
-                  className="text-blue-600 hover:text-blue-700 text-sm"
+                  className={`text-sm transition-colors ${
+                    isActiveRoute("/admin/login")
+                      ? "text-blue-800 font-medium"
+                      : "text-blue-600 hover:text-blue-700"
+                  }`}
                 >
                   ورود مدیر
                 </Link>
@@ -196,21 +256,33 @@ function NavBar() {
                 <>
                   <Link
                     href="/"
-                    className="block px-3 py-2 text-gray-700 hover:text-primary"
+                    className={`block px-3 py-2 transition-colors ${
+                      isActiveRoute("/")
+                        ? "text-primary font-medium bg-blue-50"
+                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     خانه
                   </Link>
                   <Link
                     href="/articles"
-                    className="block px-3 py-2 text-gray-700 hover:text-primary"
+                    className={`block px-3 py-2 transition-colors ${
+                      isActiveRoute("/articles")
+                        ? "text-primary font-medium bg-blue-50"
+                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     مقالات
                   </Link>
                   <Link
                     href="/products"
-                    className="block px-3 py-2 text-gray-700 hover:text-primary"
+                    className={`block px-3 py-2 transition-colors ${
+                      isActiveRoute("/products")
+                        ? "text-primary font-medium bg-blue-50"
+                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     فروشگاه
@@ -227,7 +299,11 @@ function NavBar() {
                   </div>
                   <Link
                     href="/admin/dashboard"
-                    className="block px-3 py-2 text-blue-700 hover:text-blue-900 mx-3"
+                    className={`block px-3 py-2 mx-3 transition-colors ${
+                      isActiveRoute("/admin")
+                        ? "text-blue-900 font-medium bg-blue-100"
+                        : "text-blue-700 hover:text-blue-900"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     پنل مدیریت
@@ -244,7 +320,11 @@ function NavBar() {
                 <>
                   <Link
                     href="/dashboard"
-                    className="block px-3 py-2 text-gray-700 hover:text-primary"
+                    className={`block px-3 py-2 transition-colors ${
+                      isActiveRoute("/dashboard")
+                        ? "text-primary font-medium bg-blue-50"
+                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     داشبورد
@@ -264,21 +344,33 @@ function NavBar() {
                 <>
                   <Link
                     href="/auth/login"
-                    className="block px-3 py-2 text-gray-700 hover:text-primary"
+                    className={`block px-3 py-2 transition-colors ${
+                      isActiveRoute("/auth/login")
+                        ? "text-primary font-medium bg-blue-50"
+                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     ورود هنرجو
                   </Link>
                   <Link
                     href="/auth/register"
-                    className="block px-3 py-2 bg-primary text-white rounded-lg mx-3"
+                    className={`block px-3 py-2 mx-3 rounded-lg transition-colors ${
+                      isActiveRoute("/auth/register")
+                        ? "bg-primary-dark text-white"
+                        : "bg-primary text-white hover:bg-primary-dark"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     ثبت‌نام
                   </Link>
                   <Link
                     href="/admin/login"
-                    className="block px-3 py-2 text-blue-600 hover:text-blue-700"
+                    className={`block px-3 py-2 transition-colors ${
+                      isActiveRoute("/admin/login")
+                        ? "text-blue-800 font-medium bg-blue-50"
+                        : "text-blue-600 hover:text-blue-700 hover:bg-gray-50"
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     ورود مدیر

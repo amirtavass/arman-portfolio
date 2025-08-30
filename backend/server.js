@@ -27,7 +27,12 @@ app.use(
   })
 );
 
+// IMPORTANT: Serve static files (including uploaded images)
 app.use(express.static(path.join(__dirname, "public")));
+
+// Additional static route specifically for uploads (in case of issues)
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride("method"));

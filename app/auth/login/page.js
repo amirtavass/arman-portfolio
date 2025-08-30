@@ -9,6 +9,8 @@ function LoginPage() {
     name: "",
     password: "",
   });
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -18,22 +20,67 @@ function LoginPage() {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear errors when user starts typing
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "نام کاربری الزامی است";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "رمز عبور الزامی است";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setErrors({});
+
     try {
       await loginMutation.mutateAsync(formData);
 
-      // Fix: Only redirect to register if classId exists AND is valid
-      if (classId && classId.length === 24) {
-        // MongoDB ObjectId length check
-        router.push(`/register?classId=${classId}`);
-      } else {
-        router.push("/dashboard");
-      }
+      // Redirect to dashboard (classId handling is now done in dashboard)
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
+
+      // Handle different types of login errors
+      if (error.response?.data?.message) {
+        const message = error.response.data.message;
+        if (
+          message.includes("information") ||
+          message.includes("اطلاعات") ||
+          message.includes("password") ||
+          message.includes("username")
+        ) {
+          setErrors({ general: "نام کاربری یا رمز عبور اشتباه است" });
+        } else {
+          setErrors({ general: message });
+        }
+      } else if (error.message) {
+        setErrors({ general: "خطا در ورود: " + error.message });
+      } else {
+        setErrors({
+          general: "خطایی در ورود رخ داده است. لطفاً دوباره تلاش کنید.",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,57 +95,74 @@ function LoginPage() {
             <p className="text-gray-600">به حساب خود وارد شوید</p>
           </div>
 
-          {loginMutation.error && (
+          {/* General Error Display */}
+          {errors.general && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              خطا در ورود. نام کاربری یا رمز عبور اشتباه است.
+              {errors.general}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <input
-              type="text"
-              name="name"
-              placeholder="نام کاربری"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="رمز عبور"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
-              value={formData.password}
-              onChange={handleInputChange}
-              required
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                نام کاربری
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="نام کاربری"
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
+                  errors.name ? "border-red-500 bg-red-50" : "border-gray-300"
+                }`}
+                value={formData.name}
+                onChange={handleInputChange}
+                disabled={isSubmitting}
+                required
+              />
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                رمز عبور
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="رمز عبور"
+                className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
+                  errors.password
+                    ? "border-red-500 bg-red-50"
+                    : "border-gray-300"
+                }`}
+                value={formData.password}
+                onChange={handleInputChange}
+                disabled={isSubmitting}
+                required
+              />
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+              )}
+            </div>
 
             <button
               type="submit"
-              disabled={loginMutation.isLoading}
-              className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
+              disabled={isSubmitting}
+              className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loginMutation.isLoading ? "در حال ورود..." : "ورود"}
+              {isSubmitting ? "در حال ورود..." : "ورود"}
             </button>
           </form>
 
           <div className="text-center mt-8 pt-6 border-t border-gray-200">
             <p className="text-gray-600 mb-4">کاربر جدید هستید؟</p>
             <Link
-              href="register"
+              href="/auth/register"
               className="inline-block bg-success hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               ابتدا ثبت نام کنید
-            </Link>
-          </div>
-
-          <div className="text-center mt-4">
-            <Link
-              href="/forgot-password"
-              className="text-primary hover:underline text-sm"
-            >
-              رمز عبور را فراموش کرده‌اید؟
             </Link>
           </div>
         </div>

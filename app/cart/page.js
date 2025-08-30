@@ -2,6 +2,8 @@
 import { useCart } from "@/app/contexts/CartContext";
 import { useAuth } from "@/app/contexts/authContext";
 import { useRouter } from "next/navigation";
+import { useCartPayment } from "@/app/hooks/usePayment";
+import { useState } from "react";
 import Image from "next/image";
 import { MdDelete, MdAdd, MdRemove } from "react-icons/md";
 
@@ -15,17 +17,23 @@ function CartPage() {
   } = useCart();
   const { isAuthenticated } = useAuth();
   const router = useRouter();
+  const cartPaymentMutation = useCartPayment();
+  const [paymentMethod, setPaymentMethod] = useState("zarinpal");
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!isAuthenticated) {
-      // Redirect to login for payment
+      // Store current cart for after login
+      localStorage.setItem("pendingCartPayment", JSON.stringify(cartItems));
       router.push("/auth/login?returnTo=/cart&action=checkout");
       return;
     }
 
-    // User is logged in - proceed with payment
-    alert("انتقال به درگاه پرداخت...");
-    // Here you would implement actual payment logic
+    try {
+      await cartPaymentMutation.mutateAsync(cartItems);
+    } catch (error) {
+      console.error("Payment failed:", error);
+      alert("خطا در پردازش پرداخت");
+    }
   };
 
   if (cartItems.length === 0) {
@@ -109,7 +117,7 @@ function CartPage() {
           ))}
         </div>
 
-        {/* Cart Summary & Checkout */}
+        {/* Payment Section */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-4">
             <span className="text-xl font-bold">مجموع:</span>
@@ -118,7 +126,38 @@ function CartPage() {
             </span>
           </div>
 
-          {/* Auth status message */}
+          {/* Payment Method Selection */}
+          <div className="mb-6">
+            <h3 className="text-lg font-bold mb-4">روش پرداخت</h3>
+            <div className="space-y-3">
+              <label className="flex items-center">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="zarinpal"
+                  checked={paymentMethod === "zarinpal"}
+                  onChange={(e) => setPaymentMethod(e.target.value)}
+                  className="ml-2"
+                />
+                <span>پرداخت آنلاین (زرین‌پال)</span>
+              </label>
+              {isAuthenticated && (
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="balance"
+                    checked={paymentMethod === "balance"}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                    className="ml-2"
+                  />
+                  <span>پرداخت از موجودی حساب</span>
+                </label>
+              )}
+            </div>
+          </div>
+
+          {/* Auth Status Message */}
           {!isAuthenticated && (
             <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded">
               برای پرداخت نیاز به ورود به حساب کاربری دارید
@@ -134,9 +173,14 @@ function CartPage() {
             </button>
             <button
               onClick={handleCheckout}
-              className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-bold"
+              disabled={cartPaymentMutation.isLoading}
+              className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-bold disabled:opacity-50"
             >
-              {isAuthenticated ? "پرداخت" : "ورود و پرداخت"}
+              {cartPaymentMutation.isLoading
+                ? "در حال پردازش..."
+                : isAuthenticated
+                ? "پرداخت"
+                : "ورود و پرداخت"}
             </button>
           </div>
         </div>

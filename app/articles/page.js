@@ -1,45 +1,40 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
-const articles = [
+// Swimming types data
+const swimmingTypes = [
   {
     id: 1,
-    title: "تکنیک‌های صحیح شنای کرال",
-    excerpt:
-      "یادگیری اصول و تکنیک‌های درست برای شنای کرال سینه و بهبود عملکرد در آب",
-    date: "۱۵ مهر ۱۴۰۳",
-    category: "تکنیک",
-    readTime: "۵ دقیقه",
-    image: "/images/articles/crawl-technique.gif",
+    name: "کرال سینه",
+    englishName: "Freestyle",
+    slug: "freestyle",
+    gif: "/images/articles/crawl-technique.gif",
+    description: "سریع‌ترین و محبوب‌ترین شیوه شنا",
   },
   {
     id: 2,
-    title: "انتخاب تجهیزات مناسب برای شروع شنا",
-    excerpt: "راهنمای کامل برای خرید اولین تجهیزات شنا و انتخاب بهترین برندها",
-    date: "۱۰ مهر ۱۴۰۳",
-    category: "تجهیزات",
-    readTime: "۷ دقیقه",
-    image: "/images/articles/equipment-guide.png",
+    name: "کرال پشت",
+    englishName: "Backstroke",
+    slug: "backstroke",
+    gif: "/images/articles/backstroke_Swim.gif",
+    description: "شنای روی پشت با حرکات ریتمیک",
   },
   {
     id: 3,
-    title: "نکات ایمنی در استخر و دریا",
-    excerpt:
-      "مهم‌ترین نکات ایمنی که هر شناگری باید بداند تا از حوادث جلوگیری کند",
-    date: "۵ مهر ۱۴۰۳",
-    category: "ایمنی",
-    readTime: "۴ دقیقه",
-    image: "/images/articles/safety-tips.jpg",
+    name: "پروانه",
+    englishName: "Butterfly",
+    slug: "butterfly",
+    gif: "/images/articles/butterfly_Swim.gif",
+    description: "پیچیده‌ترین و قدرتمندترین تکنیک",
   },
   {
     id: 4,
-    title: "تمرینات تقویت عضلات برای شناگران",
-    excerpt:
-      "برنامه تمرینی ویژه برای تقویت عضلات مورد نیاز در شنا و بهبود قدرت",
-    date: "۱ مهر ۱۴۰۳",
-    category: "تمرین",
-    readTime: "۶ دقیقه",
-    image: "/images/articles/strength-training.jpg",
+    name: "قورباغه",
+    englishName: "Breaststroke",
+    slug: "breaststroke",
+    gif: "/images/articles/breaststroke_SWIM.gif",
+    description: "آرام‌ترین و مناسب‌ترین برای مبتدیان",
   },
 ];
 
@@ -48,57 +43,49 @@ function ArticlesPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="mx-auto max-w-6xl px-4">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             مقالات آموزشی شنا
           </h1>
-          <p className="text-lg text-gray-600">
-            راهنماها و نکات تخصصی برای بهبود مهارت‌های شنا
+          <p className="text-lg text-gray-600 mb-12">
+            راهنماها و نکات تخصصی برای یادگیری انواع مختلف شنا
           </p>
-        </div>
 
-        {/* Articles Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((article) => (
-            <article
-              key={article.id}
-              className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden"
-            >
-              <div className="relative h-48 bg-gradient-to-r from-blue-500 to-blue-600">
-                {/* Placeholder for article image */}
-                <div className="absolute inset-0 flex items-center justify-center text-white text-6xl">
-                  <Image
-                    src={article.image}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                    quality={80}
-                  />
-                </div>
-              </div>
-              <div className="p-6">
-                <div className="flex items-center gap-4 mb-3 text-sm text-gray-500">
-                  <span className="bg-primary text-white px-2 py-1 rounded-full text-xs">
-                    {article.category}
-                  </span>
-                  <span>{article.date}</span>
-                  <span>{article.readTime}</span>
-                </div>
-                <h2 className="text-xl font-bold text-gray-800 mb-3 leading-tight">
-                  {article.title}
-                </h2>
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  {article.excerpt}
-                </p>
+          {/* Swimming Types Section */}
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold text-gray-800 mb-8">
+              چهار نوع اصلی شنا
+            </h2>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {swimmingTypes.map((type) => (
                 <Link
-                  href={`/articles/${article.id}`}
-                  className="inline-block bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                  key={type.id}
+                  href={`/articles/${type.slug}`}
+                  className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 group cursor-pointer transform hover:scale-105"
                 >
-                  ادامه مطلب
+                  <div className="relative w-full h-32 mb-4 rounded-lg overflow-hidden">
+                    <Image
+                      src={type.gif}
+                      alt={type.name}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-300"
+                      quality={80}
+                    />
+                    <div className="absolute inset-0 bg-blue-600 bg-opacity-20 group-hover:bg-opacity-10 transition-all duration-300"></div>
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-primary transition-colors">
+                    {type.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors">
+                    {type.description}
+                  </p>
+                  <div className="mt-3 text-xs text-gray-400 group-hover:text-primary transition-colors">
+                    کلیک برای مشاهده مقالات
+                  </div>
                 </Link>
-              </div>
-            </article>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

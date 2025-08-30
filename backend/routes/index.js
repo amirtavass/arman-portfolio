@@ -14,6 +14,7 @@ router.use("/registrations", require("./registration"));
 
 router.use("/admin", require("./admin")); // Admin authentication routes
 router.use("/products", require("./product")); // Product CRUD routes
+router.use("/upload", require("./upload")); // Upload routes - THIS WAS MISSING!
 
 router.get("/paycallback", homeController.paycallback);
 router.use("/logout", (req, res, next) => {
