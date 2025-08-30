@@ -12,37 +12,46 @@ module.exports = new (class DashboardController extends controller {
       next(err);
     }
   }
+
   async pay(req, res, next) {
     try {
       let params = {
-        merchant_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        merchant_id: "12345678-1234-1234-1234-123456789012",
         amount: req.body.amount,
         callback_url: "http://localhost:4000/paycallback",
-        description: "charging balance",
+        description: "charging balance - sandbox test",
       };
+
       const response = await axios.post(
-        "https://api.zarinpal.com/pg/v4/payment/request.json",
+        "https://sandbox.zarinpal.com/pg/v4/payment/request.json",
         params
       );
-      console.log(response);
-      if (response.data.status == 100) {
+
+      console.log("Sandbox payment response:", response.data);
+
+      // FIX: Check the correct response structure for sandbox
+      if (response.data.data && response.data.data.code === 100) {
         let newPayment = new payment({
           user: req.user.id,
           amount: req.body.amount,
-          resnumber: response.data.authority,
+          resnumber: response.data.data.authority, // Authority from data.authority
         });
         await newPayment.save();
         res.redirect(
-          `https://www.zarinpal.com/pg/StartPay/${response.data.authority}`
+          `https://sandbox.zarinpal.com/pg/StartPay/${response.data.data.authority}`
         );
+      } else {
+        console.error("Payment request failed:", response.data);
+        res.send("خطا در ایجاد درخواست پرداخت");
       }
     } catch (err) {
+      console.error("Payment error:", err);
       next(err);
     }
   }
+
   async edituser(req, res, next) {
     try {
-      // Debug logs
       console.log("req.body:", req.body);
       console.log("req.file:", req.file);
 

@@ -7,7 +7,6 @@ const axios = require("axios");
 let controller = require("./controller");
 
 class RegistrationController extends controller {
-  // POST /registrations - Register for a class
   async registerForClass(req, res, next) {
     try {
       const errors = validationResult(req);
@@ -20,9 +19,8 @@ class RegistrationController extends controller {
       }
 
       const { classId } = req.body;
-      const userId = req.user ? req.user.id : "507f1f77bcf86cd799439012"; // Test user ID
+      const userId = req.user ? req.user.id : "507f1f77bcf86cd799439012";
 
-      // Check if class exists and is available
       const classItem = await Class.findById(classId);
       if (!classItem) {
         return res.status(404).json({
@@ -31,7 +29,6 @@ class RegistrationController extends controller {
         });
       }
 
-      // Check if class is full
       if (classItem.currentStudents >= classItem.maxStudents) {
         return res.status(400).json({
           success: false,
@@ -39,7 +36,6 @@ class RegistrationController extends controller {
         });
       }
 
-      // Check if user already registered
       const existingRegistration = await Registration.findOne({
         student: userId,
         class: classId,
@@ -52,7 +48,7 @@ class RegistrationController extends controller {
         });
       }
 
-      // For free classes (trial sessions), register directly
+      // For free classes, register directly
       if (classItem.price === 0) {
         const newRegistration = new Registration({
           student: userId,
@@ -63,8 +59,6 @@ class RegistrationController extends controller {
         });
 
         await newRegistration.save();
-
-        // Update class current students count
         await Class.findByIdAndUpdate(classId, {
           $inc: { currentStudents: 1 },
         });
@@ -76,43 +70,44 @@ class RegistrationController extends controller {
         });
       }
 
-      // For paid classes, initiate payment
+      // For paid classes, initiate sandbox payment
       let params = {
-        merchant_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        merchant_id: "12345678-1234-1234-1234-123456789012",
         amount: classItem.price,
         callback_url: "http://localhost:4000/registrations/payment-callback",
-        description: `Registration for ${classItem.title}`,
+        description: `Registration for ${classItem.title} - sandbox test`,
       };
 
       const response = await axios.post(
-        "https://api.zarinpal.com/pg/v4/payment/request.json",
+        "https://sandbox.zarinpal.com/pg/v4/payment/request.json",
         params
       );
 
-      if (response.data.status == 100) {
-        // Create registration with pending payment
+      console.log("Class payment request response:", response.data);
+
+      // FIX: Check correct response structure
+      if (response.data.data && response.data.data.code === 100) {
         const newRegistration = new Registration({
           student: userId,
           class: classId,
           paymentAmount: classItem.price,
-          paymentReference: response.data.authority,
+          paymentReference: response.data.data.authority, // From data.authority
           paymentStatus: "pending",
           status: "registered",
         });
 
         await newRegistration.save();
 
-        // Also create payment record for tracking
         let newPayment = new payment({
           user: userId,
           amount: classItem.price,
-          resnumber: response.data.authority,
+          resnumber: response.data.data.authority, // From data.authority
         });
         await newPayment.save();
 
         return res.json({
           success: true,
-          paymentUrl: `https://www.zarinpal.com/pg/StartPay/${response.data.authority}`,
+          paymentUrl: `https://sandbox.zarinpal.com/pg/StartPay/${response.data.data.authority}`,
           message: "Payment initiated. Redirecting to payment gateway.",
         });
       } else {
@@ -122,13 +117,15 @@ class RegistrationController extends controller {
         });
       }
     } catch (err) {
+      console.error("Class registration error:", err);
       next(err);
     }
   }
 
-  // GET /registrations/payment-callback - Handle payment callback
   async paymentCallback(req, res, next) {
     try {
+      console.log("Class payment callback received:", req.query);
+
       if (req.query.Status && req.query.Status !== "OK") {
         return res.redirect("/dashboard?payment=failed");
       }
@@ -142,22 +139,26 @@ class RegistrationController extends controller {
       }
 
       let params = {
-        merchant_id: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        merchant_id: "12345678-1234-1234-1234-123456789012",
         amount: registration.paymentAmount,
         authority: req.query.Authority,
       };
 
       const response = await axios.post(
-        "https://api.zarinpal.com/pg/v4/payment/verify.json",
+        "https://sandbox.zarinpal.com/pg/v4/payment/verify.json",
         params
       );
 
-      if (response.data.status == 100) {
-        // Update registration payment status
+      console.log("Class payment verification response:", response.data);
+
+      // FIX: Check correct verification response structure
+      if (
+        response.data.data &&
+        (response.data.data.code === 100 || response.data.data.code === 101)
+      ) {
         registration.paymentStatus = "paid";
         await registration.save();
 
-        // Update payment record
         const paymentRecord = await payment.findOne({
           resnumber: req.query.Authority,
         });
@@ -166,25 +167,22 @@ class RegistrationController extends controller {
           await paymentRecord.save();
         }
 
-        // Update class current students count
         await Class.findByIdAndUpdate(registration.class, {
           $inc: { currentStudents: 1 },
         });
 
         res.redirect("/dashboard?payment=success");
       } else {
-        // Payment failed, update status
         registration.paymentStatus = "failed";
         await registration.save();
-
         res.redirect("/dashboard?payment=failed");
       }
     } catch (err) {
+      console.error("Class payment callback error:", err);
       next(err);
     }
   }
 
-  // GET /registrations/my - Get user's registrations
   async getMyRegistrations(req, res, next) {
     try {
       const registrations = await Registration.find({

@@ -12,9 +12,11 @@ router.use("/dashboard", require("./dashboard"));
 router.use("/classes", require("./class"));
 router.use("/registrations", require("./registration"));
 
-router.use("/admin", require("./admin")); // Admin authentication routes
+router.use("/admin", require("./admin"));
 router.use("/products", require("./product")); // Product CRUD routes
-router.use("/upload", require("./upload")); // Upload routes - THIS WAS MISSING!
+router.use("/upload", require("./upload"));
+
+router.use("/payment", require("./payment"));
 
 router.get("/paycallback", homeController.paycallback);
 router.use("/logout", (req, res, next) => {
@@ -24,6 +26,10 @@ router.use("/logout", (req, res, next) => {
     }
     res.redirect("/");
   });
+});
+router.get("/cart", (req, res) => {
+  const payment = req.query.payment || "unknown";
+  res.redirect(`http://localhost:3000/cart?payment=${payment}`);
 });
 
 router.all(/.*/, (req, res, next) => {

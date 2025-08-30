@@ -98,23 +98,19 @@ function DashboardPage() {
     }
 
     try {
-      // Create form data for payment
-      const formData = new FormData();
-      formData.append("amount", chargeAmount);
+      // Use form submission to backend route (this works)
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = "/dashboard/pay";
 
-      // Send POST request to payment endpoint
-      const response = await fetch("/dashboard/pay", {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
+      const amountInput = document.createElement("input");
+      amountInput.type = "hidden";
+      amountInput.name = "amount";
+      amountInput.value = chargeAmount;
 
-      if (response.redirected) {
-        // Redirect to payment gateway
-        window.location.href = response.url;
-      } else {
-        alert("خطا در ایجاد درخواست پرداخت");
-      }
+      form.appendChild(amountInput);
+      document.body.appendChild(form);
+      form.submit();
     } catch (error) {
       console.error("Payment error:", error);
       alert("خطا در اتصال به درگاه پرداخت");

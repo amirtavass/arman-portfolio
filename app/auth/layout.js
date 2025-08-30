@@ -1,8 +1,12 @@
-export const metadata = {
-  title: "ورود و عضویت - آرمان داریوشی",
-  description:
-    "ورود به حساب کاربری یا ثبت‌نام جدید برای دسترسی به کلاس‌های شنا و خدمات آموزشی آرمان داریوشی.",
-};
+"use client";
+import { useAuth } from "@/app/contexts/authContext";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+// export const metadata = {
+//   title: "ورود و عضویت - آرمان داریوشی",
+//   description:
+//     "ورود به حساب کاربری یا ثبت‌نام جدید برای دسترسی به کلاس‌های شنا و خدمات آموزشی آرمان داریوشی.",
+// };
 
 export default function AuthLayout({ children }) {
   const { isAuthenticated, isLoading } = useAuth();
