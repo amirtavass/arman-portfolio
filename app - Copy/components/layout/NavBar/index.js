@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MdMenu, MdClose } from "react-icons/md";
-import NavBarSkeleton from "@/app/components/layout/NavBar/NavBarSkeleton";
-import DesktopMenu from "@/app/components/layout/NavBar/DesktopMenu";
-import MobileMenu from "@/app/components/layout/NavBar/MobileMenu";
-import CartIcon from "@/app/components/layout/NavBar/CartIcon";
+import NavBarSkeleton from "./NavBarSkeleton";
+import DesktopMenu from "./DesktopMenu";
+import MobileMenu from "./MobileMenu";
+import CartIcon from "./CartIcon";
 
 function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

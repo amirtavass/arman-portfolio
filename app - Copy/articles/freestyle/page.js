@@ -1,54 +1,26 @@
 "use client";
 import { useState } from "react";
-import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { swimmingTypes, articlesContent } from "@/app/data/articles";
 import ArticleReader from "@/app/components/ui/ArticleReader";
 
-function SwimmingTypePage() {
-  const params = useParams();
-  const slug = params.slug;
+export default function FreestylePage() {
   const [selectedArticle, setSelectedArticle] = useState(null);
 
-  const swimmingType = swimmingTypes[slug];
-  const articles = Object.values(articlesContent[slug] || {});
+  const swimmingType = swimmingTypes.freestyle;
+  const articles = Object.values(articlesContent.freestyle || {});
 
-  if (!swimmingType) {
-    return (
-      <div className="min-h-screen bg-gray-50 py-12">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">
-              صفحه یافت نشد
-            </h1>
-            <p className="text-lg text-gray-600 mb-8">
-              نوع شنای مورد نظر یافت نشد
-            </p>
-            <Link
-              href="/articles"
-              className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg"
-            >
-              بازگشت به مقالات
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // *** KEY LOGIC: Show ArticleReader when article is selected ***
   if (selectedArticle) {
     return (
       <ArticleReader
         article={selectedArticle}
         swimmingType={swimmingType}
-        onBack={() => setSelectedArticle(null)} // Reset to show article list
+        onBack={() => setSelectedArticle(null)}
       />
     );
   }
 
-  // *** DEFAULT VIEW: Show articles list ***
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="mx-auto max-w-6xl px-4">
@@ -136,7 +108,6 @@ function SwimmingTypePage() {
                     {article.excerpt}
                   </p>
 
-                  {/* CRITICAL: This button triggers the ArticleReader */}
                   <button
                     onClick={() => setSelectedArticle(article)}
                     className="inline-block bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg font-medium transition-colors"
@@ -162,5 +133,3 @@ function SwimmingTypePage() {
     </div>
   );
 }
-
-export default SwimmingTypePage;
