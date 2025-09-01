@@ -3,53 +3,47 @@ import Image from "next/image";
 import { MdShoppingCart } from "react-icons/md";
 import { useCart } from "@/app/contexts/CartContext";
 import { useState } from "react";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 function ProductCard({ product }) {
   const { addToCart } = useCart();
   const [imageError, setImageError] = useState(false);
+  const { t } = useLanguage();
 
   const handleAddToCart = () => {
-    // No authentication check here - all users can add to cart
     addToCart({
-      id: product._id || product.id, // Handle both API data (_id) and hardcoded data (id)
+      id: product._id || product.id,
       name: product.name,
       price:
         typeof product.price === "string"
           ? parseInt(product.price.replace(/[^\d]/g, ""))
-          : product.price, // Handle both string and number prices
+          : product.price,
       image: product.image,
     });
   };
 
-  // Handle price display for both formats
   const displayPrice =
     typeof product.price === "string"
       ? product.price
       : product.price.toLocaleString();
 
-  // Clean up image path and provide fallback
   const getImageSrc = () => {
     if (!product.image || imageError) {
-      return "/images/default-product.jpg"; // Fallback image
+      return "/images/default-product.jpg";
     }
 
     let imageSrc = product.image;
-
-    // Fix double slashes and ensure proper format
     imageSrc = imageSrc.replace(/\/+/g, "/");
 
-    // If it starts with /uploads, serve from backend
     if (imageSrc.startsWith("/uploads/")) {
       return `http://localhost:4000${imageSrc}`;
     }
 
-    // Otherwise, serve from Next.js public folder
     return imageSrc;
   };
 
   return (
     <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow overflow-hidden">
-      {/* Image Container - Responsive */}
       <div className="relative w-full aspect-square bg-gray-100">
         <Image
           src={getImageSrc()}
@@ -62,7 +56,6 @@ function ProductCard({ product }) {
           priority={false}
         />
 
-        {/* Stock Status Overlay */}
         <div className="absolute top-2 right-2">
           <span
             className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -71,12 +64,11 @@ function ProductCard({ product }) {
                 : "bg-red-100 text-red-800"
             }`}
           >
-            {product.inStock ? "موجود" : "ناموجود"}
+            {product.inStock ? t("inStock") : t("outOfStock")}
           </span>
         </div>
       </div>
 
-      {/* Product Info */}
       <div className="p-4 sm:p-6">
         <h3 className="font-bold text-lg mb-2 text-center line-clamp-2 min-h-[3.5rem] flex items-center justify-center">
           {product.name}
@@ -87,11 +79,10 @@ function ProductCard({ product }) {
             {displayPrice}
           </span>
           {typeof product.price === "number" && (
-            <span className="text-gray-500 mr-2 text-sm">تومان</span>
+            <span className="text-gray-500 mx-2 text-sm">{t("toman")}</span>
           )}
         </div>
 
-        {/* Add to Cart Button */}
         <button
           disabled={!product.inStock}
           onClick={handleAddToCart}
@@ -103,7 +94,7 @@ function ProductCard({ product }) {
         >
           <MdShoppingCart className="w-4 h-4" />
           <span className="text-sm sm:text-base">
-            {product.inStock ? "افزودن به سبد" : "ناموجود"}
+            {product.inStock ? t("addToCart") : t("outOfStock")}
           </span>
         </button>
       </div>

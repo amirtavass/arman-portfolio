@@ -3,6 +3,7 @@ import { useLogin } from "@/app/hooks/useAuth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ function LoginPage() {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useLanguage();
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -20,7 +22,6 @@ function LoginPage() {
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    // Clear errors when user starts typing
     if (errors[e.target.name]) {
       setErrors({ ...errors, [e.target.name]: "" });
     }
@@ -30,11 +31,11 @@ function LoginPage() {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "نام کاربری الزامی است";
+      newErrors.name = t("username") + " is required";
     }
 
     if (!formData.password) {
-      newErrors.password = "رمز عبور الزامی است";
+      newErrors.password = t("password") + " is required";
     }
 
     setErrors(newErrors);
@@ -53,30 +54,16 @@ function LoginPage() {
 
     try {
       await loginMutation.mutateAsync(formData);
-
-      // Redirect to dashboard (classId handling is now done in dashboard)
       router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
 
-      // Handle different types of login errors
       if (error.response?.data?.message) {
         const message = error.response.data.message;
-        if (
-          message.includes("information") ||
-          message.includes("اطلاعات") ||
-          message.includes("password") ||
-          message.includes("username")
-        ) {
-          setErrors({ general: "نام کاربری یا رمز عبور اشتباه است" });
-        } else {
-          setErrors({ general: message });
-        }
-      } else if (error.message) {
-        setErrors({ general: "خطا در ورود: " + error.message });
+        setErrors({ general: t("error") + ": " + message });
       } else {
         setErrors({
-          general: "خطایی در ورود رخ داده است. لطفاً دوباره تلاش کنید.",
+          general: t("error"),
         });
       }
     } finally {
@@ -90,12 +77,11 @@ function LoginPage() {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              ورود کاربر
+              {t("userLogin")}
             </h1>
-            <p className="text-gray-600">به حساب خود وارد شوید</p>
+            <p className="text-gray-600">{t("loginToAccount")}</p>
           </div>
 
-          {/* General Error Display */}
           {errors.general && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
               {errors.general}
@@ -105,12 +91,12 @@ function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                نام کاربری
+                {t("username")}
               </label>
               <input
                 type="text"
                 name="name"
-                placeholder="نام کاربری"
+                placeholder={t("username")}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                   errors.name ? "border-red-500 bg-red-50" : "border-gray-300"
                 }`}
@@ -126,12 +112,12 @@ function LoginPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                رمز عبور
+                {t("password")}
               </label>
               <input
                 type="password"
                 name="password"
-                placeholder="رمز عبور"
+                placeholder={t("password")}
                 className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                   errors.password
                     ? "border-red-500 bg-red-50"
@@ -152,17 +138,17 @@ function LoginPage() {
               disabled={isSubmitting}
               className="w-full bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? "در حال ورود..." : "ورود"}
+              {isSubmitting ? t("loading") + "..." : t("loginButton")}
             </button>
           </form>
 
           <div className="text-center mt-8 pt-6 border-t border-gray-200">
-            <p className="text-gray-600 mb-4">کاربر جدید هستید؟</p>
+            <p className="text-gray-600 mb-4">{t("newUser")}</p>
             <Link
               href="/auth/register"
               className="inline-block bg-success hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
-              ابتدا ثبت نام کنید
+              {t("registerFirst")}
             </Link>
           </div>
         </div>

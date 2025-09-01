@@ -45,3 +45,8 @@ body {
 .hover-primary:hover {
   color: var(--primary);
 }
+.logo-bg-fix {
+  background: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+}

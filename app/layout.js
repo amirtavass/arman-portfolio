@@ -9,6 +9,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { AuthProvider } from "./contexts/authContext";
 import { CartProvider } from "./contexts/CartContext";
 import { AdminProvider } from "./contexts/AdminContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -24,17 +25,19 @@ export default function RootLayout({ children }) {
       </head>
       <body className={vazirmatn.className}>
         <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <AdminProvider>
-              <CartProvider>
-                <ThemeProvider>
-                  <NavBar />
-                  {children}
-                  <Footer />
-                </ThemeProvider>
-              </CartProvider>
-            </AdminProvider>
-          </AuthProvider>
+          <LanguageProvider>
+            <AuthProvider>
+              <AdminProvider>
+                <CartProvider>
+                  <ThemeProvider>
+                    <NavBar />
+                    {children}
+                    <Footer />
+                  </ThemeProvider>
+                </CartProvider>
+              </AdminProvider>
+            </AuthProvider>
+          </LanguageProvider>
         </QueryClientProvider>
       </body>
     </html>

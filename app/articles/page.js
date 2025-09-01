@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "../contexts/LanguageContext";
 
 // Swimming types data
 const swimmingTypes = [
@@ -39,22 +40,22 @@ const swimmingTypes = [
 ];
 
 function ArticlesPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="mx-auto max-w-6xl px-4">
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            مقالات آموزشی شنا
+            {t("articlesTitle")}
           </h1>
-          <p className="text-lg text-gray-600 mb-12">
-            راهنماها و نکات تخصصی برای یادگیری انواع مختلف شنا
-          </p>
+          <p className="text-lg text-gray-600 mb-12">{t("articlesSubtitle")}</p>
 
           {/* Swimming Types Section */}
           <div className="mb-16">
             <h2 className="text-2xl font-bold text-gray-800 mb-8">
-              چهار نوع اصلی شنا
+              {t("fourMainTypes")}
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {swimmingTypes.map((type) => (
@@ -80,7 +81,7 @@ function ArticlesPage() {
                     {type.description}
                   </p>
                   <div className="mt-3 text-xs text-gray-400 group-hover:text-primary transition-colors">
-                    کلیک برای مشاهده مقالات
+                    {t("clickToViewArticles")}
                   </div>
                 </Link>
               ))}

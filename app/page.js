@@ -6,7 +6,7 @@ import FeaturedProducts from "./components/ui/FeaturedProducts";
 import ClassRegister from "./components/ui/ClassRegister";
 
 export const metadata = {
-  title: "آرمان داریوشی - آموزش شنا حرفه‌ای",
+  title: "parsswim - آموزش شنا حرفه‌ای",
   description:
     "آموزش شنا حرفه‌ای برای تمام سنین با ۱۵ سال تجربه. مربی مجرب با مدارک بین‌المللی.",
 };
