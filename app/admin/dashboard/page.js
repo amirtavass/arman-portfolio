@@ -1,10 +1,10 @@
 "use client";
 import { useState, Suspense } from "react";
 import AdminProtectedRoute from "@/app/admin/AdminProtectedRoute";
-import AdminHeader from "./components/AdminHeader";
-import TabNavigation from "./components/TabNavigation";
-import ClassesTab from "./components/ClassesTab";
-import ProductsTab from "./components/ProductsTab";
+import AdminHeader from "@/app/admin/dashboard/components/AdminHeader";
+import TabNavigation from "@/app/admin/dashboard/components/TabNavigation";
+import ClassesTab from "@/app/admin/dashboard/components/ClassesTable";
+import ProductsTab from "@/app/admin/dashboard/components/ProductsTab";
 
 function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("classes");
