@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "http",
@@ -18,6 +19,8 @@ const nextConfig = {
     // Alternative: you can also use domains (deprecated but simpler)
     // domains: ['localhost'],
   },
+  // Trailing slash for better static hosting compatibility
+  trailingSlash: true,
   output: "export",
 };
 
