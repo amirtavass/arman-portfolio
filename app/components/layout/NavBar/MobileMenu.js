@@ -1,13 +1,15 @@
+// app/components/layout/NavBar/MobileMenu.js
 "use client";
 import Link from "next/link";
 import { useAuth } from "@/app/contexts/authContext";
 import { useAdmin } from "@/app/contexts/AdminContext";
 import { useLanguage } from "@/app/contexts/LanguageContext";
+import { MdLanguage } from "react-icons/md";
 
 function MobileMenu({ pathname, onClose }) {
   const { isAuthenticated: userAuth, user, logout: userLogout } = useAuth();
   const { isAuthenticated: adminAuth, admin, logout: adminLogout } = useAdmin();
-  const { language, t } = useLanguage();
+  const { language, toggleLanguage, t } = useLanguage();
 
   const handleUserLogout = async () => {
     await userLogout();
@@ -21,11 +23,27 @@ function MobileMenu({ pathname, onClose }) {
     window.location.href = "/";
   };
 
+  const handleLanguageToggle = () => {
+    toggleLanguage();
+    onClose();
+  };
+
   const isActiveRoute = (route) => pathname.startsWith(route);
 
   return (
     <div className="md:hidden bg-white border-t border-gray-200">
       <div className="px-2 pt-2 pb-3 space-y-1">
+        {/* Language Toggle Button - Always visible */}
+        <button
+          onClick={handleLanguageToggle}
+          className="flex items-center gap-3 px-3 py-2 w-full text-left bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+        >
+          <MdLanguage className="w-5 h-5 text-gray-600" />
+          <span className="text-sm font-medium text-gray-700">
+            {language === "fa" ? "English" : "فارسی"}
+          </span>
+        </button>
+
         {/* Mobile menu links (only show for non-admin users) */}
         {!adminAuth && (
           <>

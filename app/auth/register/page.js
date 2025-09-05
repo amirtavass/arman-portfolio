@@ -3,8 +3,9 @@ import { useState } from "react";
 import { useRegister } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { useLanguage } from "@/app/contexts/LanguageContext";
 function RegisterPage() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,21 +37,21 @@ function RegisterPage() {
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              ثبت‌نام حساب کاربری
+              {t("createAccount")}
             </h1>
-            <p className="text-gray-600">حساب خود را ایجاد کنید</p>
+            <p className="text-gray-600"> {t("registerFirst")}</p>
           </div>
 
           {registerMutation.error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              خطا در ثبت‌نام. لطفا اطلاعات را بررسی کنید.
+              {t("error")}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                نام کاربری *
+                {t("username")}
               </label>
               <input
                 type="text"
@@ -64,7 +65,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                ایمیل *
+                {t("email")}
               </label>
               <input
                 type="email"
@@ -78,7 +79,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                شماره تماس *
+                {t("phone")}
               </label>
               <input
                 type="tel"
@@ -92,7 +93,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                سن
+                {t("age")}
               </label>
               <input
                 type="number"
@@ -107,7 +108,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                رمز عبور *
+                {t("password")}
               </label>
               <input
                 type="password"
@@ -124,17 +125,17 @@ function RegisterPage() {
               disabled={registerMutation.isLoading}
               className="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors disabled:opacity-50"
             >
-              {registerMutation.isLoading ? "در حال ثبت‌نام..." : "ثبت‌نام"}
+              {t("registerButton")}
             </button>
           </form>
 
           <div className="text-center mt-8 pt-6 border-t border-gray-200">
-            <p className="text-gray-600 mb-4">قبلاً حساب دارید؟</p>
+            <p className="text-gray-600 mb-4"> {t("alreadyHaveAccount")}</p>
             <Link
               href="/auth/login"
               className="text-primary hover:underline font-medium"
             >
-              وارد شوید
+              {t("loginButton")}
             </Link>
           </div>
         </div>

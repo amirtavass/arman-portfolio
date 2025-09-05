@@ -1,26 +1,31 @@
+// app/data/articles.js
 export const swimmingTypes = {
   freestyle: {
     name: "کرال سینه",
     englishName: "Freestyle",
     description: "سریع‌ترین و محبوب‌ترین شیوه شنا",
+    englishDescription: "The fastest and most popular swimming style",
     gif: "/images/articles/crawl-technique.gif",
   },
   backstroke: {
     name: "کرال پشت",
     englishName: "Backstroke",
     description: "شنای روی پشت با حرکات ریتمیک",
+    englishDescription: "Swimming on your back with rhythmic movements",
     gif: "/images/articles/backstroke_Swim.gif",
   },
   butterfly: {
     name: "پروانه",
     englishName: "Butterfly",
     description: "پیچیده‌ترین و قدرتمندترین تکنیک",
+    englishDescription: "The most complex and powerful technique",
     gif: "/images/articles/butterfly_Swim.gif",
   },
   breaststroke: {
     name: "قورباغه",
     englishName: "Breaststroke",
     description: "آرام‌ترین و مناسب‌ترین برای مبتدیان",
+    englishDescription: "The calmest and most suitable for beginners",
     gif: "/images/articles/breaststroke_SWIM.gif",
   },
 };
@@ -30,34 +35,32 @@ export const articlesContent = {
     1: {
       id: 1,
       title: "همه‌چیز درباره‌ی شنای کرال سینه",
+      englishTitle: "Everything About Freestyle Swimming",
       excerpt:
         "یادگیری اصول و تکنیک‌های درست برای شنای کرال سینه و بهبود عملکرد در آب",
+      englishExcerpt:
+        "Learn the correct principles and techniques for freestyle swimming and improve performance in water",
       image: "/images/articles/crawl-technique.gif",
       readTime: "۵ دقیقه",
+      englishReadTime: "5 minutes",
       difficulty: "مبتدی تا متوسط",
+      englishDifficulty: "Beginner to Intermediate",
       content: `
-        <p>کرال سینه از انواع پرطرفدار شنا است که حرکاتی کاملا مشخص دارد. در این نوع شنا شانه‌ها با آب در یک خط قرار می‌گیرند و حرکات دست‌ و پا باهم انجام می‌شود. دست‌ها طی فرآیندی از سینه دور می‌شود و به دور بدن می‌چرخد و بعد دوباره به مکان اولیه برمی‌گردد.
-        شنای کرال سینه یا فری استایل محبوب‌ترین و سریع‌ترین نوع شنا محسوب می‌شود. این تکنیک به دلیل کارایی بالا و سادگی نسبی، اولین انتخاب اکثر شناگران حرفه‌ای و تفریحی است.</p>
+        <p>کرال سینه از انواع پرطرفدار شنا است که حرکاتی کاملا مشخص دارد. در این نوع شنا شانه‌ها با آب در یک خط قرار می‌گیرند و حرکات دست‌ و پا باهم انجام می‌شود. دست‌ها طی فرآیندی از سینه دور می‌شود و به دور بدن می‌چرخد و بعد دوباره به مکان اولیه برمی‌گردد.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تکنیک صحیح بدن</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تکنیک صحیح بدن</h2>
         <p>قرارگیری صحیح بدن در آب اولین و مهم‌ترین قدم در یادگیری کرال سینه است. بدن باید در وضعیت افقی و صاف قرار گیرد تا مقاومت در برابر آب به حداقل برسد.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">حرکت دست‌ها</h2>
-        <p>تعویض مرتب حرکت دست‌ها در شنای کرال سینه موجب پیشروی در آب می‌شود. هنگامی که یک دست حرکت کشش را در داخل آب انجام می‌دهد، در همان زمان دست دیگر در خارج از آب آماده‌ی ورود به آن می‌شود. تا یک دست، دست دیگر را لمس نکرده، نباید از آب خارج شود. چه در داخل و چه در خارج از آب همیشه آرنج بالاتر از مچ دست قرار دارد. بهترین میزان ورود دست به آب موقعی است که دست زیر آب نیمی از کشش زیر آب را انجام داده ‌است، زیرا در این حالت هیچ زمانی دست متوقف نمی‎شود و حرکتی دائمی در آن حال خواهد داشت. مناسبت‌ترین میزان زاویه آرنج در موقع کشش زیر آب بین ۹۰ تا ۱۰۰ درجه است. مربی باید کنترل کند که شاگرد شکستگی دست در داخل آب را حتما انجام دهد، بدین ترتیب که دست در آب وارد شده، تقریباً کشیده می‌شود.
-
-ابتدا شست وارد آب می‌شود، این عمل باعث می‌شود که آرنج در بالا قرار گیرد و  کرال صحیح است. بالا آمدن آرنج ادامه می‌یابد تا موقعی که انگشتان دست از آب خارج شود. هنگام حرکت دست باید توجه داشت این است که کف دست هنگام خارج شدن از آب به خارج چرخانده شود. این عمل باعث تسهیل در بالا نگه‌‍داشتن آرنج می‌شود.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">حرکت دست‌ها</h2>
+        <p>تعویض مرتب حرکت دست‌ها در شنای کرال سینه موجب پیشروی در آب می‌شود. هنگامی که یک دست حرکت کشش را در داخل آب انجام می‌دهد، در همان زمان دست دیگر در خارج از آب آماده‌ی ورود به آن می‌شود.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">ضربات پا</h2>
-        <p>در شنای کرال سینه معمولا عمل شلاقی و پی‌درپی پاها منجر به تثبیت وضعیت خطی بدن می‌شود و تعادل لازم را برای شناگر فراهم و شنای کرال را موزون می‌کند. در شنای کرال، حرکت پا بسیار اهمیت دارد. برخلاف تصور بسیاری از افراد، حرکات شدید پاها توام با سرو صدای زیاد که در مبتدیان بیشتر دیده می‌شود کوچکترین ارزشی ندارد، بلکه حرکات کوتاه و سریع پاها برای این شنا ضروری است. حرکات پا از مفصل شروع می‌شود که ران را به لگن خاصره مربوط می‌کند. زانو هم در حرکت است، اما حرکت آن کمتر از مفصل قبلی است و فقط تا آن حد انجام می‌شود که پاهای شناگر از آب خارج شود، بلافاصله به آب ضربه بزند و روی این اصل زاویه بین ساق‌ها هیچ‌وقت از ۳۰ درجه بیشتر نمی‌شود.
-
-ساق‌ها و ران‌ها هرگز از هم فاصله نمی‌گیرد، بلکه همواره به هم مالیده می‌شود و هنگام پا زدن باید توجه کنید که پاشنه‌ی پاها ازهم فاصله نگیرد. زانوها نیز نباید خیلی بشکند و انگشتان پاها باید کشیده شود. از مهم‌ترین مواردی که باید در حرکت پای کرال سینه درنظر گرفت، این است که در موقع زدن پا، انگشتان نباید عمود بر کف استخر باشد و شکستگی نباید بیش از حد شود.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">ضربات پا</h2>
+        <p>در شنای کرال سینه معمولا عمل شلاقی و پی‌درپی پاها منجر به تثبیت وضعیت خطی بدن می‌شود و تعادل لازم را برای شناگر فراهم و شنای کرال را موزون می‌کند.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تنفس</h2>
-        <p>یکی از قسمت‌های مهم شنای کرال سینه، نفس‌گیری در حین آن است و این مرحله همان تخلیه‌ی هوای ذخیره‌شده در شش‌ها است. خالی کردن هوا در آب هم از طریق بینی و هم از راه دهان امکان‌پذیر است. مهم نیست که فرد از کدام سمت یا جهت نفس‌گیری کند، بلکه مهم این است که عمل هواگیری یک‌طرفه باشد. عمل دم خیلی سریع انجام می‌شود و اگر عمل بازدم کمی طولانی‌تر شود اشکالی نخواهد داشت.
-
-سر به اندازه‌ای می‌چرخد تا دیگر آبی اطراف دهان نباشد و شناگر از خلا طبیعی که توسط موج کمانی ایجاد شده است سود ببرد و پایین‌تر از سطح معمولی‌آب نفس‌گیری کند.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تنفس</h2>
+        <p>یکی از قسمت‌های مهم شنای کرال سینه، نفس‌گیری در حین آن است و این مرحله همان تخلیه‌ی هوای ذخیره‌شده در شش‌ها است.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">نکات مهم</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">نکات مهم</h2>
         <ul>
           <li>همیشه سر را در راستای بدن نگه دارید</li>
           <li>از حرکات غیرضروری اجتناب کنید</li>
@@ -65,30 +68,74 @@ export const articlesContent = {
           <li>ابتدا روی تکنیک تمرکز کنید، سپس روی سرعت</li>
         </ul>
       `,
+      englishContent: `
+        <p>Freestyle is one of the most popular swimming styles with very specific movements. In this type of swimming, the shoulders align with the water in a straight line and the movements of hands and feet are coordinated together.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Correct Body Position</h2>
+        <p>Proper body positioning in water is the first and most important step in learning freestyle. The body should be in a horizontal and straight position to minimize resistance against water.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Arm Movements</h2>
+        <p>Regular alternating arm movements in freestyle swimming enable forward motion in water. When one arm performs the pulling motion underwater, the other arm is outside the water, ready to enter.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Leg Kicks</h2>
+        <p>In freestyle swimming, the whip-like and continuous action of the legs usually stabilizes the linear position of the body and provides the necessary balance for the swimmer, making freestyle swimming rhythmic.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Breathing</h2>
+        <p>One of the important parts of freestyle swimming is breathing during it, and this stage is the release of air stored in the lungs.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Important Tips</h2>
+        <ul>
+          <li>Always keep your head aligned with your body</li>
+          <li>Avoid unnecessary movements</li>
+          <li>Regular practice is the key to success</li>
+          <li>Focus on technique first, then on speed</li>
+        </ul>
+      `,
       tags: ["کرال سینه", "تکنیک", "مبتدی"],
+      englishTags: ["Freestyle", "Technique", "Beginner"],
       author: "تیم محتوا",
+      englishAuthor: "Content Team",
       publishDate: "1403/08/15",
+      englishPublishDate: "2024/11/05",
     },
     5: {
       id: 5,
       title: "بهبود سرعت در کرال آزاد",
+      englishTitle: "Improving Speed in Freestyle",
       excerpt: "تکنیک‌های پیشرفته برای افزایش سرعت و کاهش مقاومت در آب",
+      englishExcerpt:
+        "Advanced techniques for increasing speed and reducing water resistance",
       image: "/images/articles/freestyle-1.jpg",
       readTime: "۶ دقیقه",
+      englishReadTime: "6 minutes",
       difficulty: "پیشرفته",
+      englishDifficulty: "Advanced",
       content: `
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">استراتژی‌های افزایش سرعت</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">استراتژی‌های افزایش سرعت</h2>
         <p>برای بهبود سرعت در کرال آزاد، ترکیب صحیح تکنیک و قدرت ضروری است. شناگران پیشرفته باید روی جزئیات دقیق حرکات تمرکز کنند.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">کاهش مقاومت آب</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">کاهش مقاومت آب</h2>
         <p>یکی از مهم‌ترین عوامل در افزایش سرعت، کاهش مقاومت در برابر آب است. این امر از طریق بهبود وضعیت بدن و تکنیک حرکات قابل دستیابی است.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تمرینات تخصصی</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تمرینات تخصصی</h2>
         <p>تمرینات ویژه برای بهبود سرعت شامل تمرینات اسپرینت و فواصل کوتاه است که باید با دقت و برنامه‌ریزی مناسب انجام شوند.</p>
       `,
+      englishContent: `
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Speed Improvement Strategies</h2>
+        <p>To improve speed in freestyle, the right combination of technique and strength is essential. Advanced swimmers should focus on precise movement details.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Reducing Water Resistance</h2>
+        <p>One of the most important factors in increasing speed is reducing resistance against water. This can be achieved through improving body position and movement technique.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Specialized Training</h2>
+        <p>Special exercises for speed improvement include sprint training and short intervals that should be performed with precision and proper planning.</p>
+      `,
       tags: ["کرال آزاد", "سرعت", "پیشرفته"],
+      englishTags: ["Freestyle", "Speed", "Advanced"],
       author: "آرمان داریوشی",
+      englishAuthor: "Arman Daryoushi",
       publishDate: "1403/08/10",
+      englishPublishDate: "2024/10/31",
     },
   },
 
@@ -96,39 +143,47 @@ export const articlesContent = {
     2: {
       id: 2,
       title: "شنای قورباغه برای مبتدیان",
+      englishTitle: "Breaststroke Swimming for Beginners",
       excerpt: "راهنمای کامل برای یادگیری شنای قورباغه از صفر تا صد",
+      englishExcerpt:
+        "Complete guide for learning breaststroke swimming from zero to advanced",
       image: "/images/articles/breaststroke_SWIM.gif",
       readTime: "۷ دقیقه",
+      englishReadTime: "7 minutes",
       difficulty: "مبتدی",
+      englishDifficulty: "Beginner",
       content: `
-        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 border-b-3 border-slate-800 ">آشنایی با شنای قورباغه</h3>
-        <p>شنای قورباغه یکی از قدیمی‌ترین سبک‌های شنا است که برای مبتدیان بسیار مناسب است. این سبک به دلیل ریتم آرام و حرکات طبیعی، آسان‌ترین روش برای شروع یادگیری شنا محسوب می‌شود.
-        به طور کلی آموزش شنا قورباغه شامل ۴ حرکت اصلی می‌شود. توصیه ما در مستمر سوییمر به شما عزیزان این است که هر کدام از حرکات را به طور جداگانه و با تمرین و تکرار زیاد یاد بگیرید تا بتوانید بدن خود را با آب هماهنگ‌ کرده و در آب پیشروی کنید. حرکات دست، حرکات پا، تنفس و هماهنگی بدن از جمله حرکاتی است که در این شنا آموزش داده می‌شوند</p>
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 border-b-3 border-slate-800">آشنایی با شنای قورباغه</h3>
+        <p>شنای قورباغه یکی از قدیمی‌ترین سبک‌های شنا است که برای مبتدیان بسیار مناسب است. این سبک به دلیل ریتم آرام و حرکات طبیعی، آسان‌ترین روش برای شروع یادگیری شنا محسوب می‌شود.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">مراحل یادگیری</h2>
-        <p>یادگیری قورباغه باید گام به گام و با صبر انجام شود. ابتدا باید حرکات پایه را بر روی خشکی تمرین کرد، سپس در آب تکرار نمود.
-        برای این که شنا را آغاز کنید ابتدا باید حرکات دست را یاد بگیرید. در گام اول لازم است که شما بدن خود را بر روی آب شناور کنید. سپس دست‌ها را بالای سر خود ببرید و به طور موازی در مقابل بدن قرار دهید. در این حالت دست‌های شما کشیده شده و به هم چسبیده‌اند.
-        </p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">مراحل یادگیری</h2>
+        <p>یادگیری قورباغه باید گام به گام و با صبر انجام شود. ابتدا باید حرکات پایه را بر روی خشکی تمرین کرد، سپس در آب تکرار نمود.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تکنیک حرکت دست‌ها</h2>
-        <p>در قورباغه، دست‌ها همزمان حرکت می‌کنند. حرکت از جلوی سینه شروع شده و به طرفین گسترده می‌شود، سپس دوباره به سمت جلو بازمی‌گردد.
-        حال باید سعی کنید با دست‌های خود یک ۵ فرضی را بر روی آب بکشید. گاهی اوقات ممکن است مربی برای اثر بخش‌تر کردن آموزش شنا قورباغه از عبارت سیب چاقو استفاده کند. در واقع دست شما زمانی که کشیده می‌شود، حالت چاقو دارد و زمانی که می‌چرخد، یک سیب را بر روی آب می‌کشد. توجه داشته باشید هنگامی که قرار است عدد پنج خیالی را بر روی آب بکشید باید تمامی انگشتان دست شما به هم چسبیده باشند تا بدن بهتر در آب پیشروی کند. همچنین دقت داشته باشید که دست‌های خود را بیشتر از عرضی که شانه‌هایتان دارد باز نکنید.
-
-یکی از رایج‌ترین اشتباهاتی که خیلی از شناگران مبتدی با آن مواجه می‌شوند این است که دست‌های خود را بیش از حد باز می‌کنند و عدد ۵ بزرگی را می‌کشند. در واقع زمانی که دست‌های شما نزدیک قفسه سینه می‌شود، باید جمع شود.‌ در غیر این صورت نه تنها انرژی زیادی از شما گرفته می‌شود، بلکه ممکن است بدن به خوبی به سمت جلو حرکت نکند. در نهایت هم دست‌ها را به حالت اولیه که همان حالت کشیده است، بازگردانید و مجددا حرکات فوق را انجام دهید.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تکنیک حرکت دست‌ها</h2>
+        <p>در قورباغه، دست‌ها همزمان حرکت می‌کنند. حرکت از جلوی سینه شروع شده و به طرفین گسترده می‌شود، سپس دوباره به سمت جلو بازمی‌گردد.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">ضربات پا</h2>
-        <p>ضربه پا در قورباغه متفاوت از سایر سبک‌ها است. پاها ابتدا جمع شده، سپس به طرفین باز می‌شوند و با حرکت دایره‌ای به حالت اولیه برمی‌گردند.
-        برای انجام حرکات پا نیز بدن شما باید بر روی آب شناور باشد. شل بودن اولیه بدن و شناور بودن آن بر روی آب در آموزش شنا قورباغه از اهمیت زیادی برخوردار است. هنگام تمرین حرکت پا بهتر است که دست شما به طور موازی در بالای سرتان قرار بگیرد و از تخته شنا هم استفاده شود.
-
-اغلب اوقات مربیان برای این که تسلط و تمرکز اولیه را به شنا آموز یاد بدهند، از تخته شنا استفاده می‌کنند. برای این که پاهای خود را در شنای قورباغه حرکت بدهید، ابتدا لازم است که پاها را جمع کنید. جمع کردن پاها باید به سمت بدن باشد. همچنین پاها باید از قسمت پشتی بدن جمع شوند و زانوها از هم فاصله بگیرند. فاصله بین زانوها باید به اندازه عرض شانه باشد.
-
-بعد از این که پای خود را جمع کردید، با پا آب را به قسمت داخلی بدن هل بدهید و سپس پاهای خود را صاف کنید. حال باید پای خود را مجددا به همان حالت قبلی در بیاورید و در آب حرکت کنید. در اینجا آموزش شنا قورباغه برای شکل گیری و حرکت پاها به اتمام می‌رسد اما همواره باید چند نکته مهم را در نظر داشته باشید.
-
-پاهای خود را به طور آهسته جمع کنید اما زمانی که می‌خواهید پا را صاف کنید باید این فرآیند را سریع انجام دهید. هیچ وقت سعی نکنید پای خود را پرتاب کنید بلکه باید سرعت عمل خود را بالا ببرید و پای خود را با فشار وارد آب کنید تا سرعت شما در پیشروی در آب افزایش پیدا کند.‌</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">ضربات پا</h2>
+        <p>ضربه پا در قورباغه متفاوت از سایر سبک‌ها است. پاها ابتدا جمع شده، سپس به طرفین باز می‌شوند و با حرکت دایره‌ای به حالت اولیه برمی‌گردند.</p>
+      `,
+      englishContent: `
+        <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 border-b-3 border-slate-800">Introduction to Breaststroke Swimming</h3>
+        <p>Breaststroke is one of the oldest swimming styles that is very suitable for beginners. Due to its calm rhythm and natural movements, this style is considered the easiest method to start learning swimming.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Learning Stages</h2>
+        <p>Learning breaststroke should be done step by step and with patience. First, you should practice the basic movements on dry land, then repeat them in water.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Arm Movement Technique</h2>
+        <p>In breaststroke, both arms move simultaneously. The movement starts from the front of the chest and extends to the sides, then returns forward again.</p>
+        
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Leg Kicks</h2>
+        <p>The leg kick in breaststroke is different from other styles. The legs first come together, then open to the sides and return to the initial position with a circular movement.</p>
       `,
       tags: ["قورباغه", "مبتدی", "آموزش"],
+      englishTags: ["Breaststroke", "Beginner", "Training"],
       author: "آرمان داریوشی",
+      englishAuthor: "Arman Daryoushi",
       publishDate: "1403/08/05",
+      englishPublishDate: "2024/10/26",
     },
   },
 
@@ -136,57 +191,46 @@ export const articlesContent = {
     3: {
       id: 3,
       title: "شنای پروانه: تکنیک پیشرفته برای شناگران حرفه‌ای",
+      englishTitle:
+        "Butterfly Swimming: Advanced Technique for Professional Swimmers",
       excerpt: "آموزش کامل شنای پروانه از حرکات پایه تا تکنیک‌های پیشرفته",
+      englishExcerpt:
+        "Complete butterfly swimming training from basic movements to advanced techniques",
       image: "/images/articles/butterfly_Swim.gif",
       readTime: "۸ دقیقه",
+      englishReadTime: "8 minutes",
       difficulty: "پیشرفته",
+      englishDifficulty: "Advanced",
       content: `
-        <p>شنای پروانه یکی از چالش‌برانگیزترین و زیباترین سبک‌های شنا است که نیاز به هماهنگی کامل، قدرت بالا و تکنیک دقیق دارد. این شیوه شنا برای شناگران با تجربه توصیه می‌شود.</p>
+        <p>شنای پروانه یکی از چالش‌برانگیزترین و زیباترین سبک‌های شنا است که نیاز به هماهنگی کامل، قدرت بالا و تکنیک دقیق دارد.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">اصول کلی شنای پروانه</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">اصول کلی شنای پروانه</h2>
         <p>در شنای پروانه، تمام حرکات بدن باید به صورت همزمان و هماهنگ انجام شود. این شامل حرکت موجی بدن، ضربات قدرتمند دست‌ها و ضربات دلفینی پاها است.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">وضعیت سر و بدن</h2>
-        <p>حرکت موجی از سر شروع شده و تا انتهای بدن ادامه می‌یابد. این حرکت باید نرم و طبیعی باشد و انرژی را از مرکز بدن به دست‌ها و پاها منتقل کند.
-        وضعیت قرارگیری بدن در شنا پروانه به شکل زیر است: باسن باید نزدیک سطح قرار بگیرد. هنگامی که تنفس نمی‌کنید چشمان شما باید به پایین نگاه کنند.
-
-چند نمونه از اشتباهات رایج در نحوه قرارگیری بدن در این نوع شنا:
-
-نحوه قرارگیری سر شناگر، تأثیر زیادی در پیشروی در آب دارد؛ بنابراین فرد باید برای حفظ آن، در یک موقعیت خنثی تمرکز و تمرین کند.
-
-همه اعضای بدن فرد مخصوصاً باسن او، حرکات سر را دنبال می‌کنند. به این معنی که اگر چشمان شناگر به جای پایین به جلو نگاه کند، باسن در آب فرو می‌رود. با فرو رفتن پشت فرد در آب، فرد در آب احساس سنگینی کرده و نمی‌تواند روی حرکات خود تمرکز کند.
-
-</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تکنیک حرکت دست‌ها</h2>
+        <p>دست‌ها همزمان وارد آب شده و با حرکت قدرتمند به عقب کشیده می‌شوند. خروج دست‌ها از آب نیز باید همزمان انجام شود.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تکنیک حرکت دست‌ها</h2>
-        <p>در استارت در شنا پروانه باید دست‌هایتان کمی بازتر از شانه‌هایتان وارد آب شوند. به نحوه قرارگیری عقربه‌های ساعت در 11 و 1 فکر کنید عین همان مدل باید دستان‌تان قرار بگیرد.
-
-در زیر آب، اساساً 2 حرکت آزاد هم‌زمان باهم انجام می‌شوند. شما باید آرنج خود را بالا نگه دارید تا ساعد، عمودی اولیه را در طول کشش حفظ کند. سعی کنید دست‌های خود را از عرض شانه باز نگه داشته و صاف به عقب بکشید.
-
-بازوهای شما باید هنگام خروج از آب، به طور کامل دراز شوند تا مرحله پیشروی شروع شود. بازوهای خود را صاف نگه دارید و آنها را به بیرون و اطراف بکشید و دوباره، جلوی شانه‌های خود، وارد آب کنید.
-
-نکته‌ای که در انجام حرکات کششی باید به آن توجه نمایید این است که مطالعات نشان داده که شنا با انگشتان کمی از هم جدا می‌تواند نیروی کشش شما را تا 10 درصد بهبود ببخشد و به شما کمک کند تا در مقایسه با شنا کردن با انگشتان محکم به هم فشرده، 2.5 درصد سریع‌تر شنا کنید.
-
-</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">ضربات دلفینی</h2>
+        <p>پاها همزمان و مانند دم دلفین حرکت می‌کنند. معمولاً در هر چرخه دست، دو ضربه پا انجام می‌شود.</p>
+      `,
+      englishContent: `
+        <p>Butterfly swimming is one of the most challenging and beautiful swimming styles that requires complete coordination, high strength, and precise technique.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">ضربات دلفینی</h2>
-        <p>پاها همزمان و مانند دم دلفین حرکت می‌کنند. معمولاً در هر چرخه دست، دو ضربه پا انجام می‌شود.
-        ضربه پروانه‌ای به عنوان ضربه دلفین نیز شناخته می‌شود. این حرکت موج‌دار، فرد را به جلو می‌راند. فرد با یک ضربه بازو، 2 ضربه لگد انجام می‌دهد: ضربه اول به بیرون راندن بازوها از آب کمک می‌کند و ضربه دوم به شما کمک می‌کند تا زمانی که دستانتان دوباره وارد آب می‌شوند به جلو رانده شوید.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">General Principles of Butterfly Swimming</h2>
+        <p>In butterfly swimming, all body movements must be performed simultaneously and in coordination. This includes the undulating body movement, powerful arm strokes, and dolphin kicks.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تنفس در پروانه</h2>
-        <p>تنفس در پروانه نیاز به تایمینگ دقیق دارد. سر در لحظه خروج دست‌ها از آب بلند شده و هوا تنفس می‌شود.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Arm Movement Technique</h2>
+        <p>Both arms enter the water simultaneously and are pulled back with powerful movement. The exit of arms from water must also be done simultaneously.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">نکات مهم برای یادگیری</h2>
-        <ul>
-          <li>ابتدا روی حرکت موجی بدن تمرکز کنید</li>
-          <li>قدرت عضلات مرکزی را تقویت کنید</li>
-          <li>از تمرینات تدریجی استفاده کنید</li>
-          <li>صبر و پشتکار برای یادگیری ضروری است</li>
-        </ul>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Dolphin Kicks</h2>
+        <p>Both legs move simultaneously like a dolphin's tail. Usually, two leg kicks are performed for each arm cycle.</p>
       `,
       tags: ["پروانه", "پیشرفته", "تکنیک"],
+      englishTags: ["Butterfly", "Advanced", "Technique"],
       author: "آرمان داریوشی",
+      englishAuthor: "Arman Daryoushi",
       publishDate: "1403/08/20",
+      englishPublishDate: "2024/11/10",
     },
   },
 
@@ -194,49 +238,46 @@ export const articlesContent = {
     4: {
       id: 4,
       title: "آموزش شنای کرال پشت: تکنیک و نکات کاربردی",
+      englishTitle:
+        "Backstroke Swimming Tutorial: Technique and Practical Tips",
       excerpt: "راهنمای جامع برای یادگیری شنای کرال پشت با تمرکز بر تکنیک صحیح",
+      englishExcerpt:
+        "Comprehensive guide for learning backstroke swimming with focus on correct technique",
       image: "/images/articles/backstroke_Swim.gif",
       readTime: "۶ دقیقه",
+      englishReadTime: "6 minutes",
       difficulty: "متوسط",
+      englishDifficulty: "Intermediate",
       content: `
-        <p>شنای کرال پشت یکی از سبک‌های منحصر به فرد شناست که در آن شناگر روی پشت قرار می‌گیرد و با حرکات متناوب دست‌ها و ضربات مداوم پا حرکت می‌کند. این سبک برای کسانی که مشکل تنفسی دارند بسیار مناسب است.</p>
+        <p>شنای کرال پشت یکی از سبک‌های منحصر به فرد شناست که در آن شناگر روی پشت قرار می‌گیرد و با حرکات متناوب دست‌ها و ضربات مداوم پا حرکت می‌کند.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">وضعیت صحیح بدن</h2>
-        <p>برای شروع شنای کرال پشت پس از این که داخل استخر قرار گرفتید باید یک خط شنای فرضی که خطی مستقیم از یک دیواره به دیواره دیگر است برای خود در نظر بگیرید. سپس باید از میله های مخصوص شنای کرال پشت که در کنار دیواره تعبیه شده اند بگیرید و درون آب حالت نشسته به بدن خود بدهید.
-
-منظور از حالت نشسته این است که کف پاهای خود را به دیواره بچسبانید و کنار یکدیگر قرار دهید و سپس زانوها را خم کنید تا هر دو زانو و قسمت بالا تنه، بالای آب و قسمت پایین تنه (بجز زانوها) داخل آب قرار بگیرند.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">وضعیت صحیح بدن</h2>
+        <p>بدن باید در وضعیت افقی روی پشت قرار گیرد. سر ثابت و چشمان رو به بالا باشند.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تکنیک حرکت دست‌ها</h2>
-        <p>دست‌ها به صورت متناوب حرکت می‌کنند. هر دست از کنار ران شروع شده، مستقیم به بالا می‌رود و سپس به شکل قوس وارد آب می‌شود. انگشتان باید ابتدا وارد آب شوند.
-        حرکت دست ها یکی از مهمترین و تاثیرگذارترین حرکت ها در این شناست. اجرای صحیح این حرکت باعث پیشرانش و حفظ تعادل شما در آب می‌شود و بالطبع عدم اجرای درست آن نیز تعادل شما را بهم زده، بدنتان را از خط مستقیم شنا خارج می‌کند و باعث اُفت شدید سرعت شنا می‌شود!</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تکنیک حرکت دست‌ها</h2>
+        <p>دست‌ها به صورت متناوب حرکت می‌کنند. هر دست از کنار ران شروع شده، مستقیم به بالا می‌رود و سپس به شکل قوس وارد آب می‌شود.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">ضربات پا</h2>
-        <p>حرکت پا در شنای کرال پشت، که به آن “back kick” نیز گفته می‌شود، یکی از اجزای حیاتی برای ایجاد پیشرانش و حفظ تعادل در این سبک شنا است که تکمیل کننده حرکت دست ها محسوب می‌شود. این تکنیک شامل یک سری حرکت های سریع و مداوم است که از ران ها شروع شده و تا نوک پاها ادامه می‌یابند. در زیر، به توضیح نکات کلیدی حرکت پا در شنای کرال پشت می‌پردازیم که با دقت در آن ها موفق به اجرای این حرکت به بهترین شکل خواهید شد.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">تنفس در کرال پشت</h2>
+        <p>از آنجایی که صورت بالای آب است، تنفس آسان‌تر از سایر سبک‌ها است. با این حال، باید ریتم تنفس با حرکات هماهنگ باشد.</p>
+      `,
+      englishContent: `
+        <p>Backstroke is a unique swimming style where the swimmer lies on their back and moves with alternating arm movements and continuous leg kicks.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">تنفس در کرال پشت</h2>
-        <p>هواگیری شنا کرال پشت همانطور که بالاتر هم گفته شد، در مقایسه با سایر انواع شنا آسان‌تر است. ولی این بدین معنا نیست که شناگر می‌تواند در هنگام اجرای حرکات شنای کرال پشت به شکل معمول و بدون هیچ فن و تکنیک خاصی هواگیری کند!
-
-هواگیری که آخرین گام آموزش شنا کرال پشت محسوب می‌شود و جزو آموزش های شنای کرال پشت حرفه ای است، به شکل دم از دهان (با بالا آمدن دست) و بازدم از بینی (با پایین رفتن دست) انجام می‌شود. بهتر است در حین انجام شنای کرال پشت، ریه ها پُر از هوا باشند تا به این ترتیب شناوری در آب به شکل کامل حفظ شود.</p>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Correct Body Position</h2>
+        <p>The body should be in a horizontal position on the back. The head should be stable and eyes looking upward.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">نکات مهم</h2>
-        <ul>
-          <li>سر را ثابت نگه دارید و از چرخاندن آن جلوگیری کنید</li>
-          <li>کتف‌ها را متناوب از آب خارج کنید</li>
-          <li>ریتم منظم بین حرکات دست و پا حفظ کنید</li>
-          <li>از فرو رفتن لگن در آب جلوگیری کنید</li>
-        </ul>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Arm Movement Technique</h2>
+        <p>Arms move alternately. Each arm starts from beside the thigh, goes straight up, and then enters the water in an arc shape.</p>
         
-        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2 ">اشتباهات رایج</h2>
-        <ul>
-          <li>نگاه کردن به طرفین به جای بالا</li>
-          <li>خم کردن زانوها بیش از حد</li>
-          <li>عدم هماهنگی بین دست‌ها و پاها</li>
-          <li>ورود نادرست دست به آب</li>
-        </ul>
+        <h2 class="text-2xl font-bold text-gray-800 mt-8 mb-4 pb-2">Breathing in Backstroke</h2>
+        <p>Since the face is above water, breathing is easier than other styles. However, breathing rhythm should be coordinated with movements.</p>
       `,
       tags: ["کرال پشت", "متوسط", "تکنیک"],
+      englishTags: ["Backstroke", "Intermediate", "Technique"],
       author: "آرمان داریوشی",
+      englishAuthor: "Arman Daryoushi",
       publishDate: "1403/08/12",
+      englishPublishDate: "2024/11/02",
     },
   },
 };

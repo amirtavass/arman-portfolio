@@ -4,18 +4,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { swimmingTypes, articlesContent } from "@/app/data/articles";
 import ArticleReader from "@/app/components/ui/ArticleReader";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 export default function ButterflyPage() {
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const { language, t } = useLanguage();
 
   const swimmingType = swimmingTypes.butterfly;
   const articles = Object.values(articlesContent.butterfly || {});
 
+  // Create language-aware article object for ArticleReader
+  const getLocalizedArticle = (article) => {
+    if (!article) return null;
+
+    return {
+      ...article,
+      title: language === "fa" ? article.title : article.englishTitle,
+      excerpt: language === "fa" ? article.excerpt : article.englishExcerpt,
+      content: language === "fa" ? article.content : article.englishContent,
+      readTime: language === "fa" ? article.readTime : article.englishReadTime,
+      difficulty:
+        language === "fa" ? article.difficulty : article.englishDifficulty,
+      tags: language === "fa" ? article.tags : article.englishTags,
+      author: language === "fa" ? article.author : article.englishAuthor,
+      publishDate:
+        language === "fa" ? article.publishDate : article.englishPublishDate,
+    };
+  };
+
+  const localizedSwimmingType = {
+    name: language === "fa" ? swimmingType.name : swimmingType.englishName,
+    description:
+      language === "fa"
+        ? swimmingType.description
+        : swimmingType.englishDescription,
+  };
+
   if (selectedArticle) {
     return (
       <ArticleReader
-        article={selectedArticle}
-        swimmingType={swimmingType}
+        article={getLocalizedArticle(selectedArticle)}
+        swimmingType={localizedSwimmingType}
         onBack={() => setSelectedArticle(null)}
       />
     );
@@ -31,20 +60,21 @@ export default function ButterflyPage() {
               href="/articles"
               className="text-gray-500 hover:text-primary transition-colors"
             >
-              مقالات
+              {t("articles")}
             </Link>
             <span className="mx-2 text-gray-400">/</span>
             <span className="text-gray-800 font-medium">
-              {swimmingType.name}
+              {localizedSwimmingType.name}
             </span>
           </div>
 
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            مقالات {swimmingType.name}
+            {language === "fa" ? "مقالات" : "Articles"}{" "}
+            {localizedSwimmingType.name}
           </h1>
 
           <p className="text-lg text-gray-600 mb-8">
-            {swimmingType.description}
+            {localizedSwimmingType.description}
           </p>
         </div>
 
@@ -59,14 +89,18 @@ export default function ButterflyPage() {
                 <div className="relative h-48">
                   <Image
                     src={article.image}
-                    alt={article.title}
+                    alt={
+                      language === "fa" ? article.title : article.englishTitle
+                    }
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                     quality={80}
                   />
                   <div className="absolute top-4 right-4">
                     <span className="bg-primary text-white px-2 py-1 rounded-full text-xs">
-                      {article.difficulty}
+                      {language === "fa"
+                        ? article.difficulty
+                        : article.englishDifficulty}
                     </span>
                   </div>
                 </div>
@@ -85,23 +119,27 @@ export default function ButterflyPage() {
                           clipRule="evenodd"
                         />
                       </svg>
-                      {article.readTime}
+                      {language === "fa"
+                        ? article.readTime
+                        : article.englishReadTime}
                     </span>
                   </div>
 
                   <h3 className="text-xl font-bold text-gray-800 mb-3 leading-tight">
-                    {article.title}
+                    {language === "fa" ? article.title : article.englishTitle}
                   </h3>
 
                   <p className="text-gray-600 mb-4 leading-relaxed">
-                    {article.excerpt}
+                    {language === "fa"
+                      ? article.excerpt
+                      : article.englishExcerpt}
                   </p>
 
                   <button
                     onClick={() => setSelectedArticle(article)}
                     className="inline-block bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-lg font-medium transition-colors"
                   >
-                    ادامه مطلب
+                    {t("readMore")}
                   </button>
                 </div>
               </article>
@@ -109,12 +147,14 @@ export default function ButterflyPage() {
           </div>
         ) : (
           <div className="text-center py-16">
-            <div className="text-gray-400 text-6xl mb-4">📝</div>
+            <div className="text-gray-400 text-6xl mb-4">📄</div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">
-              مقاله‌ای یافت نشد
+              {language === "fa" ? "مقاله‌ای یافت نشد" : "No Articles Found"}
             </h3>
             <p className="text-gray-600">
-              مقاله‌ای برای این نوع شنا هنوز منتشر نشده است.
+              {language === "fa"
+                ? "مقاله‌ای برای این نوع شنا هنوز منتشر نشده است."
+                : "No articles have been published for this swimming style yet."}
             </p>
           </div>
         )}

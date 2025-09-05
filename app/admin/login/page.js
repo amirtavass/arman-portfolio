@@ -3,8 +3,10 @@ import { useAdminLogin } from "@/app/hooks/useAdminAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 function AdminLoginPage() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -32,13 +34,15 @@ function AdminLoginPage() {
       <div className="max-w-md mx-auto px-4">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">ورود مدیر</h1>
-            <p className="text-gray-600">پنل مدیریت سیستم</p>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              {" "}
+              {t("adminLogin")}
+            </h1>
           </div>
 
           {adminLoginMutation.error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              خطا در ورود. نام کاربری یا رمز عبور اشتباه است.
+              {t("error")}
             </div>
           )}
 
@@ -46,7 +50,7 @@ function AdminLoginPage() {
             <input
               type="text"
               name="username"
-              placeholder="نام کاربری مدیر"
+              placeholder={t("adminUserName")}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               value={formData.username}
               onChange={handleInputChange}
@@ -55,7 +59,7 @@ function AdminLoginPage() {
             <input
               type="password"
               name="password"
-              placeholder="رمز عبور"
+              placeholder={t("adminPassword")}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               value={formData.password}
               onChange={handleInputChange}
@@ -67,15 +71,13 @@ function AdminLoginPage() {
               disabled={adminLoginMutation.isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition-colors disabled:opacity-50"
             >
-              {adminLoginMutation.isLoading
-                ? "در حال ورود..."
-                : "ورود به پنل مدیریت"}
+              {t("adminLogin")}
             </button>
           </form>
 
           <div className="text-center mt-6">
             <Link href="/" className="text-blue-600 hover:underline text-sm">
-              بازگشت به صفحه اصلی
+              {t("back")}
             </Link>
           </div>
         </div>

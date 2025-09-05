@@ -1,3 +1,4 @@
+// app/contexts/LanguageContext.js
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 
@@ -34,10 +35,10 @@ const translations = {
     specialProducts: "محصولات ویژه",
     price: "قیمت",
     toman: "تومان",
-    allProducts: " همه تجهیزات شنا در یک مکان",
-    noProductFound: " محصولی یافت نشد",
-    noAvailibleProduct: " هیچ محصولی در حال حاضر موجود نیست.",
-    callSupport: "   لطفاً بعداً دوباره بررسی کنید یا با پشتیبانی تماس بگیرید.",
+    allProducts: "همه تجهیزات شنا در یک مکان",
+    noProductFound: "محصولی یافت نشد",
+    noAvailibleProduct: "هیچ محصولی در حال حاضر موجود نیست.",
+    callSupport: "لطفاً بعداً دوباره بررسی کنید یا با پشتیبانی تماس بگیرید.",
 
     // Classes
     classRegistration: "ثبت‌نام کلاس‌های شنا",
@@ -122,13 +123,14 @@ const translations = {
 
     // Footer
     swimCoach: "دو مربی حرفه ای شنا",
+    allRightsReserved: "تمام حقوق محفوظ است",
 
     // Articles Page (Main)
     articlesTitle: "مقالات آموزشی شنا",
     articlesSubtitle: "راهنماها و نکات تخصصی برای یادگیری انواع مختلف شنا",
     fourMainTypes: "چهار نوع اصلی شنا",
     clickToViewArticles: "کلیک برای مشاهده مقالات",
-    readMore: "بیشتر بخوانید",
+    readMore: "مطالعه بیشتر",
 
     // Swimming Types
     freestyle: "کرال سینه",
@@ -180,9 +182,9 @@ const translations = {
     specialProducts: "Featured Products",
     price: "Price",
     toman: "Toman",
-    allProducts: "All Products In One Place",
+    allProducts: "All Swimming Equipment In One Place",
     noProductFound: "No Product Was Found",
-    noAvailibleProduct: "There Is No Availible Product At The Moment",
+    noAvailibleProduct: "There Is No Available Product At The Moment",
     callSupport: "Please Try Again Later Or Call Support",
 
     // Classes
@@ -269,6 +271,7 @@ const translations = {
 
     // Footer
     swimCoach: "2 Professional Swimming Coaches",
+    allRightsReserved: "All Rights Reserved",
 
     // Articles Page (Main)
     articlesTitle: "Swimming Training Articles",

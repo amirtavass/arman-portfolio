@@ -7,6 +7,7 @@ import { useCartPayment } from "@/app/hooks/usePayment";
 import { useState } from "react";
 import Image from "next/image";
 import { MdDelete, MdAdd, MdRemove } from "react-icons/md";
+import { useLanguage } from "../contexts/LanguageContext";
 
 // Helper function to get proper image URL
 const getImageUrl = (imagePath) => {
@@ -31,6 +32,7 @@ const getImageUrl = (imagePath) => {
 };
 
 function CartPage() {
+  const { t } = useLanguage();
   const {
     cartItems,
     updateQuantity,
@@ -59,7 +61,6 @@ function CartPage() {
       await cartPaymentMutation.mutateAsync(cartItems);
     } catch (error) {
       console.error("Payment failed:", error);
-      alert("خطا در پردازش پرداخت");
     }
   };
 
@@ -67,14 +68,14 @@ function CartPage() {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-8">سبد خرید</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-8">{t("cart")}</h1>
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <p className="text-gray-600 text-lg">سبد خرید شما خالی است</p>
+            <p className="text-gray-600 text-lg">{t("cartEmpty")}</p>
             <a
               href="/products"
               className="inline-block mt-4 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"
             >
-              بازگشت به فروشگاه
+              {t("backToShop")}
             </a>
           </div>
         </div>
@@ -85,7 +86,7 @@ function CartPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">سبد خرید</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-8">{t("cart")}</h1>
 
         {/* Cart Items */}
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
@@ -115,7 +116,7 @@ function CartPage() {
                       ? item.price
                       : 0
                     ).toLocaleString()}{" "}
-                    تومان
+                    {t("toman")}
                   </p>
                 </div>
               </div>
@@ -142,7 +143,7 @@ function CartPage() {
                     (typeof item.price === "number" ? item.price : 0) *
                     item.quantity
                   ).toLocaleString()}{" "}
-                  تومان
+                  {t("toman")}
                 </div>
 
                 <button
@@ -159,15 +160,15 @@ function CartPage() {
         {/* Payment Section */}
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex justify-between items-center mb-4">
-            <span className="text-xl font-bold">مجموع:</span>
+            <span className="text-xl font-bold">{t("total")}</span>
             <span className="text-2xl font-bold text-primary">
-              {getTotalPrice().toLocaleString()} تومان
+              {getTotalPrice().toLocaleString()} {t("toman")}
             </span>
           </div>
 
           {/* Payment Method Selection */}
           <div className="mb-6">
-            <h3 className="text-lg font-bold mb-4">روش پرداخت</h3>
+            <h3 className="text-lg font-bold mb-4">{t("paymentMethod")}</h3>
             <div className="space-y-3">
               <label className="flex items-center">
                 <input
@@ -178,7 +179,7 @@ function CartPage() {
                   onChange={(e) => setPaymentMethod(e.target.value)}
                   className="ml-2"
                 />
-                <span>پرداخت آنلاین (زرین‌پال)</span>
+                <span>{t("onlinePayment")}</span>
               </label>
               {isAuthenticated && (
                 <label className="flex items-center">
@@ -190,7 +191,7 @@ function CartPage() {
                     onChange={(e) => setPaymentMethod(e.target.value)}
                     className="ml-2"
                   />
-                  <span>پرداخت از موجودی حساب</span>
+                  <span>{t("accountBalance")}</span>
                 </label>
               )}
             </div>
@@ -199,7 +200,7 @@ function CartPage() {
           {/* Auth Status Message */}
           {!isAuthenticated && (
             <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded">
-              برای پرداخت نیاز به ورود به حساب کاربری دارید
+              {t("authRequired")}
             </div>
           )}
 
@@ -208,7 +209,7 @@ function CartPage() {
               onClick={clearCart}
               className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold"
             >
-              پاک کردن سبد
+              {t("clearCart")}
             </button>
             <button
               onClick={handleCheckout}
@@ -216,10 +217,10 @@ function CartPage() {
               className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-bold disabled:opacity-50"
             >
               {cartPaymentMutation?.isLoading
-                ? "در حال پردازش..."
+                ? t("loading") + "..."
                 : isAuthenticated
-                ? "پرداخت"
-                : "ورود و پرداخت"}
+                ? t("payment")
+                : t("loginAndPay")}
             </button>
           </div>
         </div>

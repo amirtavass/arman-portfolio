@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "@/app/auth/ProtectedRoute";
 import Link from "next/link";
+import { useLanguage } from "@/app/contexts/LanguageContext";
 
 function DashboardPage() {
   const { user, logout } = useAuth();
+  const { t, language } = useLanguage();
   const router = useRouter();
 
   const [selectedClass, setSelectedClass] = useState(null);
@@ -19,9 +21,8 @@ function DashboardPage() {
     goals: "",
   });
 
-  // Check for selected class on mount - using window.location instead of useSearchParams
+  // Check for selected class on mount
   useEffect(() => {
-    // Check URL parameters manually for static compatibility
     if (typeof window !== "undefined") {
       const urlParams = new URLSearchParams(window.location.search);
       const action = urlParams.get("action");
@@ -57,7 +58,12 @@ function DashboardPage() {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert(`ثبت‌نام در کلاس "${selectedClass.title}" با موفقیت انجام شد!`);
+      const successMessage =
+        language === "fa"
+          ? `ثبت‌نام در کلاس "${selectedClass.title}" با موفقیت انجام شد!`
+          : `Successfully registered for "${selectedClass.title}" class!`;
+
+      alert(successMessage);
 
       // Clear form and selections
       setSelectedClass(null);
@@ -71,11 +77,14 @@ function DashboardPage() {
       });
       localStorage.removeItem("selectedClass");
 
-      // Navigate without useRouter for better static compatibility
       window.history.pushState({}, "", "/dashboard");
     } catch (error) {
       console.error("Registration error:", error);
-      alert("خطا در ثبت‌نام. لطفاً دوباره تلاش کنید.");
+      const errorMessage =
+        language === "fa"
+          ? "خطا در ثبت‌نام. لطفاً دوباره تلاش کنید."
+          : "Registration error. Please try again.";
+      alert(errorMessage);
     }
   };
 
@@ -92,12 +101,50 @@ function DashboardPage() {
     const amount = formData.get("amount");
 
     if (!amount || amount < 1000) {
-      alert("حداقل مبلغ شارژ 1000 تومان است");
+      const minAmountMessage =
+        language === "fa"
+          ? "حداقل مبلغ شارژ 1000 تومان است"
+          : "Minimum charge amount is 1000 Toman";
+      alert(minAmountMessage);
       return;
     }
 
-    // In a real app, this would redirect to payment gateway
-    alert(`درخواست شارژ ${parseInt(amount).toLocaleString()} تومان ارسال شد`);
+    try {
+      // Create payment request to backend
+      const response = await fetch("/dashboard/pay", {
+        method: "POST",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (response.redirected) {
+        // Redirect to payment gateway
+        window.location.href = response.url;
+      } else {
+        const errorMessage =
+          language === "fa"
+            ? "خطا در ایجاد درخواست پرداخت"
+            : "Error creating payment request";
+        alert(errorMessage);
+      }
+    } catch (error) {
+      console.error("Payment error:", error);
+      const errorMessage =
+        language === "fa"
+          ? "خطا در اتصال به درگاه پرداخت"
+          : "Error connecting to payment gateway";
+      alert(errorMessage);
+    }
+  };
+
+  const handlePaidClassPayment = () => {
+    const paymentMessage =
+      language === "fa"
+        ? "انتقال به صفحه پرداخت..."
+        : "Redirecting to payment page...";
+    alert(paymentMessage);
+    // Here you would integrate with your payment system
+    // For now, we'll just show the alert
   };
 
   return (
@@ -108,34 +155,34 @@ function DashboardPage() {
             {/* Header */}
             <div className="text-center mb-12">
               <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                سلام {user?.name}
+                {t("welcome")} {user?.name}
               </h1>
-              <p className="text-lg text-gray-600">
-                به داشبورد شخصی خود خوش آمدید
-              </p>
+              <p className="text-lg text-gray-600">{t("welcomeToDashboard")}</p>
 
               {/* User Info Card */}
               <div className="bg-blue-50 p-4 rounded-lg mt-6 max-w-md mx-auto">
-                <h3 className="font-bold text-gray-800 mb-2">اطلاعات کاربری</h3>
+                <h3 className="font-bold text-gray-800 mb-2">
+                  {t("userInfo")}
+                </h3>
                 <div className="text-sm text-gray-600 space-y-1">
                   <p>
-                    <strong>نام:</strong> {user?.name}
+                    <strong>{t("name")}:</strong> {user?.name}
                   </p>
                   <p>
-                    <strong>ایمیل:</strong> {user?.email}
+                    <strong>{t("email")}:</strong> {user?.email}
                   </p>
                   <p>
-                    <strong>موجودی:</strong> {user?.balance?.toLocaleString()}{" "}
-                    تومان
+                    <strong>{t("balance")}:</strong>{" "}
+                    {user?.balance?.toLocaleString()} {t("toman")}
                   </p>
                 </div>
 
-                {/* Simple Charge Form */}
+                {/* Charge Form */}
                 <form onSubmit={handleChargeBalance} className="mt-4">
                   <input
                     type="number"
                     name="amount"
-                    placeholder="مبلغ به تومان"
+                    placeholder={t("amount")}
                     min="1000"
                     className="w-full px-3 py-2 border rounded-lg text-gray-900 mb-2"
                     required
@@ -144,7 +191,7 @@ function DashboardPage() {
                     type="submit"
                     className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg"
                   >
-                    شارژ حساب
+                    {t("chargeAccount")}
                   </button>
                 </form>
               </div>
@@ -154,7 +201,7 @@ function DashboardPage() {
                 onClick={handleLogout}
                 className="mt-4 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
               >
-                خروج از حساب
+                {t("logoutAccount")}
               </button>
             </div>
 
@@ -162,24 +209,32 @@ function DashboardPage() {
             {showRegistrationForm && selectedClass && (
               <div className="mb-8 p-6 bg-blue-50 border border-blue-400 rounded-lg">
                 <h3 className="text-xl font-bold text-blue-800 mb-4">
-                  ثبت‌نام در کلاس: {selectedClass.title}
+                  {language === "fa"
+                    ? `ثبت‌نام در کلاس: ${selectedClass.title}`
+                    : `Register for Class: ${selectedClass.title}`}
                 </h3>
                 <div className="bg-white p-4 rounded-lg mb-6">
                   <h4 className="font-bold text-lg">{selectedClass.title}</h4>
                   <p className="text-gray-600">{selectedClass.classType}</p>
-                  <p className="text-green-600 font-bold">کلاس رایگان</p>
+                  <p className="text-green-600 font-bold">{t("freeClass")}</p>
                   <p className="text-gray-600">
-                    تاریخ:{" "}
-                    {new Date(selectedClass.date).toLocaleDateString("fa-IR")}
+                    {language === "fa" ? "تاریخ" : "Date"}:{" "}
+                    {new Date(selectedClass.date).toLocaleDateString(
+                      language === "fa" ? "fa-IR" : "en-US"
+                    )}
                   </p>
-                  <p className="text-gray-600">زمان: {selectedClass.time}</p>
+                  <p className="text-gray-600">
+                    {language === "fa" ? "زمان" : "Time"}: {selectedClass.time}
+                  </p>
                 </div>
 
                 <form onSubmit={handleRegistrationSubmit} className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        نام و نام خانوادگی تماس اضطراری
+                        {language === "fa"
+                          ? "نام و نام خانوادگی تماس اضطراری"
+                          : "Emergency Contact Name"}
                       </label>
                       <input
                         type="text"
@@ -192,12 +247,18 @@ function DashboardPage() {
                           })
                         }
                         className="w-full px-3 py-2 border rounded-lg text-gray-900"
-                        placeholder="نام کامل شخص قابل تماس"
+                        placeholder={
+                          language === "fa"
+                            ? "نام کامل شخص قابل تماس"
+                            : "Full name of contact person"
+                        }
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">
-                        شماره تماس اضطراری
+                        {language === "fa"
+                          ? "شماره تماس اضطراری"
+                          : "Emergency Contact Phone"}
                       </label>
                       <input
                         type="tel"
@@ -210,14 +271,16 @@ function DashboardPage() {
                           })
                         }
                         className="w-full px-3 py-2 border rounded-lg text-gray-900"
-                        placeholder="09xxxxxxxxx"
+                        placeholder={
+                          language === "fa" ? "09xxxxxxxxx" : "Phone number"
+                        }
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      تجربه شنا
+                      {language === "fa" ? "تجربه شنا" : "Swimming Experience"}
                     </label>
                     <select
                       value={registrationForm.swimmingExperience}
@@ -229,15 +292,23 @@ function DashboardPage() {
                       }
                       className="w-full px-3 py-2 border rounded-lg text-gray-900"
                     >
-                      <option value="beginner">مبتدی</option>
-                      <option value="intermediate">متوسط</option>
-                      <option value="advanced">پیشرفته</option>
+                      <option value="beginner">
+                        {language === "fa" ? "مبتدی" : "Beginner"}
+                      </option>
+                      <option value="intermediate">
+                        {language === "fa" ? "متوسط" : "Intermediate"}
+                      </option>
+                      <option value="advanced">
+                        {language === "fa" ? "پیشرفته" : "Advanced"}
+                      </option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      مشکلات پزشکی (در صورت وجود)
+                      {language === "fa"
+                        ? "مشکلات پزشکی (در صورت وجود)"
+                        : "Medical Conditions (if any)"}
                     </label>
                     <textarea
                       value={registrationForm.medicalConditions}
@@ -249,13 +320,19 @@ function DashboardPage() {
                       }
                       className="w-full px-3 py-2 border rounded-lg text-gray-900"
                       rows="3"
-                      placeholder="هیچ مشکل خاصی ندارم یا ذکر مشکلات پزشکی"
+                      placeholder={
+                        language === "fa"
+                          ? "هیچ مشکل خاصی ندارم یا ذکر مشکلات پزشکی"
+                          : "No specific problems or mention medical conditions"
+                      }
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium mb-2">
-                      اهداف از یادگیری شنا
+                      {language === "fa"
+                        ? "اهداف از یادگیری شنا"
+                        : "Goals for Learning Swimming"}
                     </label>
                     <textarea
                       value={registrationForm.goals}
@@ -267,7 +344,11 @@ function DashboardPage() {
                       }
                       className="w-full px-3 py-2 border rounded-lg text-gray-900"
                       rows="3"
-                      placeholder="اهداف و انتظارات خود را شرح دهید"
+                      placeholder={
+                        language === "fa"
+                          ? "اهداف و انتظارات خود را شرح دهید"
+                          : "Describe your goals and expectations"
+                      }
                     />
                   </div>
 
@@ -276,14 +357,16 @@ function DashboardPage() {
                       type="submit"
                       className="flex-1 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold"
                     >
-                      تکمیل ثبت‌نام
+                      {language === "fa"
+                        ? "تکمیل ثبت‌نام"
+                        : "Complete Registration"}
                     </button>
                     <button
                       type="button"
                       onClick={handleCancelSelection}
                       className="flex-1 bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg font-bold"
                     >
-                      انصراف
+                      {t("cancel")}
                     </button>
                   </div>
                 </form>
@@ -296,59 +379,72 @@ function DashboardPage() {
               selectedClass.price > 0 && (
                 <div className="mb-8 p-6 bg-yellow-50 border border-yellow-400 rounded-lg">
                   <h3 className="text-xl font-bold text-yellow-800 mb-4">
-                    کلاس انتخاب شده برای ثبت‌نام
+                    {language === "fa"
+                      ? "کلاس انتخاب شده برای ثبت‌نام"
+                      : "Selected Class for Registration"}
                   </h3>
                   <div className="bg-white p-4 rounded-lg">
                     <h4 className="font-bold text-lg">{selectedClass.title}</h4>
                     <p className="text-gray-600">
-                      قیمت: {selectedClass.price.toLocaleString()} تومان
+                      {language === "fa" ? "قیمت" : "Price"}:{" "}
+                      {selectedClass.price.toLocaleString()} {t("toman")}
                     </p>
                     <div className="mt-4 flex gap-4">
                       <button
-                        onClick={() => alert("انتقال به صفحه پرداخت...")}
+                        onClick={handlePaidClassPayment}
                         className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg"
                       >
-                        پرداخت و ثبت‌نام
+                        {language === "fa"
+                          ? "پرداخت و ثبت‌نام"
+                          : "Pay and Register"}
                       </button>
                       <button
                         onClick={handleCancelSelection}
                         className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-lg"
                       >
-                        انصراف
+                        {t("cancel")}
                       </button>
                     </div>
                   </div>
                 </div>
               )}
 
-            {/* Quick Actions - Only show when no selections active */}
+            {/* Quick Actions */}
             {!selectedClass && !showRegistrationForm && (
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-blue-50 p-6 rounded-lg text-center">
                   <h3 className="text-xl font-bold text-gray-800 mb-4">
-                    کلاس‌های شنا
+                    {language === "fa" ? "کلاس‌های شنا" : "Swimming Classes"}
                   </h3>
                   <p className="text-gray-600 mb-4">
-                    مشاهده و ثبت‌نام در کلاس‌های مختلف
+                    {language === "fa"
+                      ? "مشاهده و ثبت‌نام در کلاس‌های مختلف"
+                      : "View and register for different classes"}
                   </p>
                   <Link
                     href="/"
                     className="inline-block bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark"
                   >
-                    مشاهده تمام کلاس‌ها
+                    {language === "fa"
+                      ? "مشاهده تمام کلاس‌ها"
+                      : "View All Classes"}
                   </Link>
                 </div>
 
                 <div className="bg-purple-50 p-6 rounded-lg text-center">
                   <h3 className="text-xl font-bold text-gray-800 mb-4">
-                    فروشگاه
+                    {t("products")}
                   </h3>
-                  <p className="text-gray-600 mb-4">خرید تجهیزات شنا</p>
+                  <p className="text-gray-600 mb-4">
+                    {language === "fa"
+                      ? "خرید تجهیزات شنا"
+                      : "Buy swimming equipment"}
+                  </p>
                   <a
                     href="/products"
                     className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg"
                   >
-                    تمام محصولات
+                    {t("viewAllProducts")}
                   </a>
                 </div>
               </div>
