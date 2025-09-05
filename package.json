@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export",
-    "static": "next build && next export && echo 'Static files ready in /out directory'"
+    "export": "next build && next export"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.85.5",

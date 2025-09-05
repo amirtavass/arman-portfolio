@@ -10,6 +10,7 @@ import { AuthProvider } from "./contexts/authContext";
 import { CartProvider } from "./contexts/CartContext";
 import { AdminProvider } from "./contexts/AdminContext";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import ApiDebugger from "./lib/apiDebug";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],

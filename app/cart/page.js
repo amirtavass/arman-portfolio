@@ -1,3 +1,4 @@
+// app/cart/page.js
 "use client";
 import { useCart } from "@/app/contexts/CartContext";
 import { useAuth } from "@/app/contexts/authContext";
@@ -6,6 +7,28 @@ import { useCartPayment } from "@/app/hooks/usePayment";
 import { useState } from "react";
 import Image from "next/image";
 import { MdDelete, MdAdd, MdRemove } from "react-icons/md";
+
+// Helper function to get proper image URL
+const getImageUrl = (imagePath) => {
+  if (!imagePath) return "/images/default-product.jpg";
+
+  // If it's already a full URL, return as is
+  if (imagePath.startsWith("http")) return imagePath;
+
+  // If it's an upload path, prepend the API URL
+  if (imagePath.startsWith("/uploads")) {
+    const apiUrl =
+      typeof window !== "undefined"
+        ? window.location.hostname === "localhost"
+          ? "http://localhost:4000"
+          : "https://parsswim-backend-production.up.railway.app"
+        : "http://localhost:4000";
+    return `${apiUrl}${imagePath}`;
+  }
+
+  // Otherwise, it's a local image
+  return imagePath;
+};
 
 function CartPage() {
   const {
@@ -19,10 +42,14 @@ function CartPage() {
   const router = useRouter();
   const cartPaymentMutation = useCartPayment();
   const [paymentMethod, setPaymentMethod] = useState("zarinpal");
+  const [imageErrors, setImageErrors] = useState({});
+
+  const handleImageError = (itemId) => {
+    setImageErrors((prev) => ({ ...prev, [itemId]: true }));
+  };
 
   const handleCheckout = async () => {
     if (!isAuthenticated) {
-      // Store current cart for after login
       localStorage.setItem("pendingCartPayment", JSON.stringify(cartItems));
       router.push("/auth/login?returnTo=/cart&action=checkout");
       return;
@@ -45,7 +72,7 @@ function CartPage() {
             <p className="text-gray-600 text-lg">سبد خرید شما خالی است</p>
             <a
               href="/products"
-              className="inline-block mt-4 bg-primary text-white px-6 py-3 rounded-lg"
+              className="inline-block mt-4 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"
             >
               بازگشت به فروشگاه
             </a>
@@ -56,7 +83,6 @@ function CartPage() {
   }
 
   return (
-    // NO ProtectedRoute wrapper - available to all users
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-3xl font-bold text-gray-800 mb-8">سبد خرید</h1>
@@ -69,18 +95,27 @@ function CartPage() {
               className="flex items-center justify-between border-b border-gray-200 py-4 last:border-b-0"
             >
               <div className="flex items-center gap-4">
-                <div className="relative w-16 h-16 rounded-lg overflow-hidden">
+                <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-gray-100">
                   <Image
-                    src={item.image}
+                    src={
+                      imageErrors[item.id]
+                        ? "/images/default-product.jpg"
+                        : getImageUrl(item.image)
+                    }
                     alt={item.name}
                     fill
                     className="object-cover"
+                    onError={() => handleImageError(item.id)}
                   />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-800">{item.name}</h3>
                   <p className="text-gray-600">
-                    {item.price.toLocaleString()} تومان
+                    {(typeof item.price === "number"
+                      ? item.price
+                      : 0
+                    ).toLocaleString()}{" "}
+                    تومان
                   </p>
                 </div>
               </div>
@@ -103,7 +138,11 @@ function CartPage() {
                 </div>
 
                 <div className="text-lg font-bold text-primary">
-                  {(item.price * item.quantity).toLocaleString()} تومان
+                  {(
+                    (typeof item.price === "number" ? item.price : 0) *
+                    item.quantity
+                  ).toLocaleString()}{" "}
+                  تومان
                 </div>
 
                 <button
@@ -173,10 +212,10 @@ function CartPage() {
             </button>
             <button
               onClick={handleCheckout}
-              disabled={cartPaymentMutation.isLoading}
+              disabled={cartPaymentMutation?.isLoading}
               className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-bold disabled:opacity-50"
             >
-              {cartPaymentMutation.isLoading
+              {cartPaymentMutation?.isLoading
                 ? "در حال پردازش..."
                 : isAuthenticated
                 ? "پرداخت"

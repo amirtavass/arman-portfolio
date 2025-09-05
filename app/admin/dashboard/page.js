@@ -3,8 +3,9 @@ import { useState, Suspense } from "react";
 import AdminProtectedRoute from "@/app/admin/AdminProtectedRoute";
 import AdminHeader from "@/app/admin/dashboard/components/AdminHeader";
 import TabNavigation from "@/app/admin/dashboard/components/TabNavigation";
-import ClassesTab from "@/app/admin/dashboard/components/ClassesTable";
+import ClassesTab from "@/app/admin/dashboard/components/ClassesTab";
 import ProductsTab from "@/app/admin/dashboard/components/ProductsTab";
+import ProductForm from "@/app/admin/dashboard/components/ProductsForm";
 
 function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("classes");

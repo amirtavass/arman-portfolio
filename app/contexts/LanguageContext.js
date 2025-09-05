@@ -128,6 +128,7 @@ const translations = {
     articlesSubtitle: "راهنماها و نکات تخصصی برای یادگیری انواع مختلف شنا",
     fourMainTypes: "چهار نوع اصلی شنا",
     clickToViewArticles: "کلیک برای مشاهده مقالات",
+    readMore: "بیشتر بخوانید",
 
     // Swimming Types
     freestyle: "کرال سینه",
@@ -275,6 +276,7 @@ const translations = {
       "Guides and expert tips for learning different swimming styles",
     fourMainTypes: "Four Main Swimming Styles",
     clickToViewArticles: "Click to view articles",
+    readMore: "Read More",
 
     // Swimming Types
     freestyle: "Freestyle",

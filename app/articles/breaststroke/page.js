@@ -46,17 +46,6 @@ export default function BreaststrokePage() {
           <p className="text-lg text-gray-600 mb-8">
             {swimmingType.description}
           </p>
-
-          {/* Swimming Type GIF */}
-          <div className="relative w-64 h-40 mx-auto mb-12 rounded-xl overflow-hidden shadow-lg">
-            <Image
-              src={swimmingType.gif}
-              alt={swimmingType.name}
-              fill
-              className="object-cover"
-              quality={80}
-            />
-          </div>
         </div>
 
         {/* Articles Grid */}
