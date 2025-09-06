@@ -4,8 +4,9 @@ import { useRegister } from "@/app/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "@/app/contexts/LanguageContext";
+
 function RegisterPage() {
-  const { t } = useLanguage();
+  const { t } = useLanguage(); // ✅ FIXED: Ensure t is defined
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,27 +32,39 @@ function RegisterPage() {
     }
   };
 
+  // ✅ FIXED: Add error boundary and safe defaults
+  const safeT = (key, fallback = key) => {
+    try {
+      return t ? t(key) : fallback;
+    } catch (error) {
+      console.error("Translation error:", error);
+      return fallback;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-200 py-12">
       <div className="max-w-md mx-auto px-4">
         <div className="bg-white rounded-xl shadow-lg p-8">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              {t("createAccount")}
+              {safeT("createAccount", "ثبت‌نام حساب کاربری")}
             </h1>
-            <p className="text-gray-600"> {t("registerFirst")}</p>
+            <p className="text-gray-600">
+              {safeT("registerFirst", "حساب خود را ایجاد کنید")}
+            </p>
           </div>
 
           {registerMutation.error && (
             <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
-              {t("error")}
+              {safeT("error", "خطا در ثبت‌نام. لطفا اطلاعات را بررسی کنید.")}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t("username")}
+                {safeT("username", "نام کاربری")} *
               </label>
               <input
                 type="text"
@@ -65,7 +78,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t("email")}
+                {safeT("email", "ایمیل")} *
               </label>
               <input
                 type="email"
@@ -79,7 +92,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t("phone")}
+                {safeT("phone", "شماره تماس")} *
               </label>
               <input
                 type="tel"
@@ -93,7 +106,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t("age")}
+                {safeT("age", "سن")}
               </label>
               <input
                 type="number"
@@ -108,7 +121,7 @@ function RegisterPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                {t("password")}
+                {safeT("password", "رمز عبور")} *
               </label>
               <input
                 type="password"
@@ -125,17 +138,21 @@ function RegisterPage() {
               disabled={registerMutation.isLoading}
               className="w-full bg-primary hover:bg-primary-dark text-white py-3 px-6 rounded-lg font-semibold transition-colors disabled:opacity-50"
             >
-              {t("registerButton")}
+              {registerMutation.isLoading
+                ? safeT("loading", "در حال بارگذاری") + "..."
+                : safeT("registerButton", "ثبت‌نام")}
             </button>
           </form>
 
           <div className="text-center mt-8 pt-6 border-t border-gray-200">
-            <p className="text-gray-600 mb-4"> {t("alreadyHaveAccount")}</p>
+            <p className="text-gray-600 mb-4">
+              {safeT("alreadyHaveAccount", "قبلاً حساب دارید؟")}
+            </p>
             <Link
               href="/auth/login"
               className="text-primary hover:underline font-medium"
             >
-              {t("loginButton")}
+              {safeT("loginButton", "وارد شوید")}
             </Link>
           </div>
         </div>

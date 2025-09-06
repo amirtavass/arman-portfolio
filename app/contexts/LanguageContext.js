@@ -1,4 +1,3 @@
-// app/contexts/LanguageContext.js
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 
@@ -35,10 +34,11 @@ const translations = {
     specialProducts: "محصولات ویژه",
     price: "قیمت",
     toman: "تومان",
-    allProducts: "همه تجهیزات شنا در یک مکان",
-    noProductFound: "محصولی یافت نشد",
-    noAvailibleProduct: "هیچ محصولی در حال حاضر موجود نیست.",
-    callSupport: "لطفاً بعداً دوباره بررسی کنید یا با پشتیبانی تماس بگیرید.",
+    allProducts: " همه تجهیزات شنا در یک مکان",
+    noProductFound: " محصولی یافت نشد",
+    noAvailibleProduct: " هیچ محصولی در حال حاضر موجود نیست.",
+    callSupport: "   لطفاً بعداً دوباره بررسی کنید یا با پشتیبانی تماس بگیرید.",
+    Total: "مجموع",
 
     // Classes
     classRegistration: "ثبت‌نام کلاس‌های شنا",
@@ -77,7 +77,7 @@ const translations = {
     // Cart
     cart: "سبد خرید",
     cartEmpty: "سبد خرید شما خالی است",
-    backToShop: "بازگشت به فروشگاه",
+    back: "بازگشت",
     total: "مجموع",
     clearCart: "پاک کردن سبد",
     payment: "پرداخت",
@@ -85,6 +85,7 @@ const translations = {
     paymentMethod: "روش پرداخت",
     onlinePayment: "پرداخت آنلاین (زرین‌پال)",
     accountBalance: "پرداخت از موجودی حساب",
+    paymentRequirement: "برای پرداخت نیاز به ورود به حساب کاربری دارید",
 
     // Dashboard
     welcome: "سلام",
@@ -100,6 +101,9 @@ const translations = {
     logoutAccount: "خروج از حساب",
 
     // Admin
+    adminLogin: "ورود مدیر",
+    adminUserName: "نام کاربری مدیر",
+    adminPassword: "رمز عبور مدیر",
     adminPanel: "پنل مدیریت",
     adminLogout: "خروج مدیر",
     manageClasses: "مدیریت کلاس‌ها",
@@ -123,14 +127,13 @@ const translations = {
 
     // Footer
     swimCoach: "دو مربی حرفه ای شنا",
-    allRightsReserved: "تمام حقوق محفوظ است",
 
     // Articles Page (Main)
     articlesTitle: "مقالات آموزشی شنا",
     articlesSubtitle: "راهنماها و نکات تخصصی برای یادگیری انواع مختلف شنا",
     fourMainTypes: "چهار نوع اصلی شنا",
     clickToViewArticles: "کلیک برای مشاهده مقالات",
-    readMore: "مطالعه بیشتر",
+    readMore: "بیشتر بخوانید",
 
     // Swimming Types
     freestyle: "کرال سینه",
@@ -182,9 +185,9 @@ const translations = {
     specialProducts: "Featured Products",
     price: "Price",
     toman: "Toman",
-    allProducts: "All Swimming Equipment In One Place",
+    allProducts: "All Products In One Place",
     noProductFound: "No Product Was Found",
-    noAvailibleProduct: "There Is No Available Product At The Moment",
+    noAvailibleProduct: "There Is No Availible Product At The Moment",
     callSupport: "Please Try Again Later Or Call Support",
 
     // Classes
@@ -225,7 +228,7 @@ const translations = {
     // Cart
     cart: "Shopping Cart",
     cartEmpty: "Your cart is empty",
-    backToShop: "Back to Shop",
+    back: "Back",
     total: "Total",
     clearCart: "Clear Cart",
     payment: "Payment",
@@ -233,7 +236,7 @@ const translations = {
     paymentMethod: "Payment Method",
     onlinePayment: "Online Payment (ZarinPal)",
     accountBalance: "Pay from Account Balance",
-
+    Total: "total",
     // Dashboard
     welcome: "Hello",
     welcomeToDashboard: "Welcome to your personal dashboard",
@@ -246,8 +249,12 @@ const translations = {
     pay: "Pay",
     cancel: "Cancel",
     logoutAccount: "Logout",
+    paymentRequirement: "For Payment You Need To Create New User",
 
     // Admin
+    adminLogin: "Admin Login",
+    adminUserName: "Admin Username",
+    adminPassword: "Admin Password",
     adminPanel: "Admin Panel",
     adminLogout: "Admin Logout",
     manageClasses: "Manage Classes",
@@ -271,7 +278,6 @@ const translations = {
 
     // Footer
     swimCoach: "2 Professional Swimming Coaches",
-    allRightsReserved: "All Rights Reserved",
 
     // Articles Page (Main)
     articlesTitle: "Swimming Training Articles",
